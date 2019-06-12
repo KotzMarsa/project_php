@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="label.id">
+                <source>label.id</source>
+                <target>Id</target>
+            </trans-unit>
+            <trans-unit id="label.title">
+                <source>label.title</source>
+                <target>Tytuł</target>
+            </trans-unit>
+            <trans-unit id="label.tags">
+                <source>label.tags</source>
+                <target>Tagi</target>
+            </trans-unit>
+            <trans-unit id="title.product_list">
+                <source>title.product_list</source>
+                <target>Lista produktów</target>
+            </trans-unit>
+            <trans-unit id="label_previous">
+                <source>label_previous</source>
+                <target>Poprzednia</target>
+            </trans-unit>
+            <trans-unit id="label_next">
+                <source>label_next</source>
+                <target>Następna</target>
+            </trans-unit>
+            <trans-unit id="label.product_name">
+                <source>label.product_name</source>
+                <target>Nazwa produktu</target>
+            </trans-unit>
+            <trans-unit id="label.calories">
+                <source>label.calories</source>
+                <target>Kalorie</target>
+            </trans-unit>
+            <trans-unit id="label.carbohydrate">
+                <source>label.carbohydrate</source>
+                <target>Węglowodany</target>
+            </trans-unit>
+            <trans-unit id="label.protein">
+                <source>label.protein</source>
+                <target>Białko</target>
+            </trans-unit>
+            <trans-unit id="label.fat">
+                <source>label.fat</source>
+                <target>Tłuszcz</target>
+            </trans-unit>
+            <trans-unit id="title.diary_entry_list">
+                <source>title.diary_entry_list</source>
+                <target>Lista wpisów</target>
+            </trans-unit>
+            <trans-unit id="label.date">
+                <source>label.date</source>
+                <target>Data</target>
+            </trans-unit>
+            <trans-unit id="label.meal">
+                <source>label.meal</source>
+                <target>Posiłek</target>
+            </trans-unit>
+            <trans-unit id="title.product_new">
+                <source>title.product_new</source>
+                <target>Dodaj produkt</target>
+            </trans-unit>
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Zapisz</target>
+            </trans-unit>
+            <trans-unit id="action.back_to_list">
+                <source>action.back_to_list</source>
+                <target>Wróć do listy</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

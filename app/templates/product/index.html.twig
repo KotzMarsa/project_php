@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.product_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.product_list'|trans }}</h1>
+    {% if pagination is defined and pagination|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'p.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.product_name'|trans, 'p.productName') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.calories'|trans, 'p.calories') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.carbohydrate'|trans, 'p.carbohydrate') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.protein'|trans, 'p.protein') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.fat'|trans, 'p.fat') }}</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in pagination %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.productName }}</td>
+                    <td>{{ product.calories }}</td>
+                    <td>{{ product.carbohydrate }}</td>
+                    <td>{{ product.protein }}</td>
+                    <td>{{ product.fat }}</td>
+
+                    {#                    <td>#}
+{#                        <a href="{{ url( 'product_view', {id: product.id}) }}" title="{{ 'action.view'|trans }}">#}
+{#                            {{ 'action.view'|trans }}#}
+{#                        </a>#}
+{#                    </td>#}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+
+{% endblock %}

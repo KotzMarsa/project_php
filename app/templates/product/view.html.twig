@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.product_view'|trans({'%id%': product.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.product_view'|trans({'%id%': product.id|default('')}) }}</h1>
+    {% if product is defined and product|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'label.calories'|trans }}</dt>
+            <dd>{{ product.calories }}</dd>
+            <dt>{{ 'label.carbohydrate'|trans }}</dt>
+            <dd>{{ product.carbohydrate }}</dd>
+            <dt>{{ 'label.protein'|trans }}</dt>
+            <dd>{{  product.protein }}</dd>
+            <dt>{{ 'label.fat'|trans }}</dt>
+            <dd>{{ product.fat }}</dd>
+        </dl>
+    {% else %}
+        <p>
+            {{ 'message.item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
