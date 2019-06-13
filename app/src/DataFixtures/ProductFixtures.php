@@ -17,12 +17,12 @@ class ProductFixtures extends AbstractBaseFixtures
      */
     public function loadData(ObjectManager $manager): void
     {
-        $this->createMany(30, 'products', function ($i) {
+        $this->createMany(100, 'products', function ($i) {
             $product = new Product();
-            $product->setProductName($this->faker->sentence);
-            $product->setCalories($this->faker->numberBetween(0, 100));
-            $product->setCarbohydrate($this->faker->numberBetween(0, 50));
-            $product->setFat($this->faker->numberBetween(0, 50));
+            $product->setProductName($this->faker->sentence(3, true));
+            $product->setCalories($this->faker->numberBetween(0, 1000));
+            $product->setCarbohydrate($this->faker->numberBetween(0, 60));
+            $product->setFat($this->faker->numberBetween(0, 40));
             $product->setProtein($this->faker->numberBetween(0, 100 - $product->getFat() - $product->getCarbohydrate()));
             $product->setIsAccepted($this->faker->boolean());
             $product->setCategory($this->getRandomReference('categories'));

@@ -6,7 +6,9 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Entity\DiaryEntry;
 use App\Entity\Product;
+use App\Entity\Meal;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,9 +16,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ProductType
+ * Class DiaryEntryType
  */
-class ProductType extends AbstractType
+class DiaryEntryType extends AbstractType
 {
     /**
      * Builds the form.
@@ -32,73 +34,53 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'category',
+            'meal',
             EntityType::class,
             [
-                'class' => Category::class,
-                'choice_label' => function ($category) {
-                    return $category->getName();
+                'class' => Meal::class,
+                'choice_label' => function ($meal) {
+                    return $meal->getName();
                 },
-                'label' => 'label.category',
+                'label' => 'label.meal',
+                'placeholder' => 'label.none',
+                'required' => true,
+            ]
+        );
+//        $builder->add(
+//            'category',
+//            EntityType::class,
+//            [
+//                'class' => Category::class,
+//                'choice_label' => function ($category) {
+//                    return ($category->getName());
+//                },
+//                'label' => 'label.category',
+//                'placeholder' => 'label.none',
+//                'required' => true,
+//            ]
+//        );
+        $builder->add(
+            'product',
+            EntityType::class,
+            [
+                'class' => Product::class,
+                'choice_label' => function ($product) {
+                    return $product->getProductName();
+                },
+                'label' => 'label.product_name',
                 'placeholder' => 'label.none',
                 'required' => true,
             ]
         );
         $builder->add(
-            'product_name',
+            'serving',
             TextType::class,
             [
-                'label' => 'label.product_name',
+                'label' => 'label.serving',
                 'required' => true,
                 'attr' => ['max_length' => 100],
             ]
         );
-        $builder->add(
-            'calories',
-            TextType::class,
-            [
-                'label' => 'label.calories',
-                'required' => true,
-                'attr' => ['max_length' => 100],
-            ]
-        );
-        $builder->add(
-            'carbohydrate',
-            TextType::class,
-            [
-                'label' => 'label.carbohydrate',
-                'required' => true,
-                'attr' => ['max_length' => 100],
-            ]
-        );
-        $builder->add(
-            'protein',
-            TextType::class,
-            [
-                'label' => 'label.protein',
-                'required' => true,
-                'attr' => ['max_length' => 3],
-            ]
-        );
-        $builder->add(
-            'fat',
-            TextType::class,
-            [
-                'label' => 'label.fat',
-                'required' => true,
-                'attr' => ['max_length' => 3],
-            ]
-        );
-//        $builder->add(
-//            'is_accepted',
-//            TextType::class,
-//            [
-//                'label' => 'label.is_accepted',
-//                'required' => false,
-//                'data' => '0',
-//                'label' => false,
-//            ]
-//        );
     }
 
     /**
@@ -108,7 +90,7 @@ class ProductType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Product::class]);
+        $resolver->setDefaults(['data_class' => DiaryEntry::class]);
     }
 
     /**
@@ -121,6 +103,6 @@ class ProductType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'product';
+        return 'diary_entry';
     }
 }

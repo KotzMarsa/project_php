@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+//use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DiaryEntryRepository")
@@ -13,11 +14,11 @@ class DiaryEntry
     /**
      * Use constants to define configuration options that rarely change instead
      * of specifying them in app/config/config.yml.
-     * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
+     * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options.
      *
      * @constant int NUMBER_OF_ITEMS
      */
-    const NUMBER_OF_ITEMS = 10;
+    const NUMBER_OF_ITEMS = 50;
 
     /**
      * @ORM\Id()
@@ -27,7 +28,10 @@ class DiaryEntry
     private $id;
 
     /**
+     * @var \Date
+     *
      * @ORM\Column(type="datetime")
+     *
      */
     private $date;
 
@@ -48,16 +52,27 @@ class DiaryEntry
      */
     private $meal;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
+    /**
+     * @param \DateTimeInterface $date
+     *
+     * @return DiaryEntry
+     */
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
@@ -65,11 +80,19 @@ class DiaryEntry
         return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getServing(): ?int
     {
         return $this->serving;
     }
 
+    /**
+     * @param int $serving
+     *
+     * @return DiaryEntry
+     */
     public function setServing(int $serving): self
     {
         $this->serving = $serving;
@@ -77,11 +100,19 @@ class DiaryEntry
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getRelation(): ?string
     {
         return $this->relation;
     }
 
+    /**
+     * @param string $relation
+     *
+     * @return DiaryEntry
+     */
     public function setRelation(string $relation): self
     {
         $this->relation = $relation;
@@ -89,11 +120,19 @@ class DiaryEntry
         return $this;
     }
 
+    /**
+     * @return Product|null
+     */
     public function getProduct(): ?Product
     {
         return $this->product;
     }
 
+    /**
+     * @param Product|null $product
+     *
+     * @return DiaryEntry
+     */
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
@@ -101,11 +140,19 @@ class DiaryEntry
         return $this;
     }
 
+    /**
+     * @return Meal|null
+     */
     public function getMeal(): ?Meal
     {
         return $this->meal;
     }
 
+    /**
+     * @param Meal|null $meal
+     *
+     * @return DiaryEntry
+     */
     public function setMeal(?Meal $meal): self
     {
         $this->meal = $meal;

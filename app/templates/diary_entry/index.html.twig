@@ -1,27 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.diary_entry
-    _list'|trans }}
+    {{ 'title.diary_entry_list'|trans }}
 {% endblock %}
 
 {% block body %}
     <h1>{{ 'title.diary_entry_list'|trans }}</h1>
     {% if pagination is defined and pagination|length %}
 
-        <div class="navigation text-center">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'de.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.date'|trans, 'de.date') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.meal'|trans, 'm.name') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.product'|trans, 'p.name') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.calories'|trans, 'p.calories') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.serving'|trans, 'p.serving') }}</th>
+{#                <th>{{ 'label.id'|trans }}</th>#}
+                <th>{{ knp_pagination_sortable(pagination,'label.date'|trans, 'de.date') }}</th>
+                <th>{{ knp_pagination_sortable(pagination,'label.meal'|trans, 'm.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination,'label.product'|trans, 'p.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination,'label.serving'|trans, 'de.serving') }}</th>
+                <th>{{ knp_pagination_sortable(pagination,'label.calories'|trans, 'p.calories') }}</th>
+                <th>{{ knp_pagination_sortable(pagination,'label.carbohydrate'|trans, 'p.carbohydrate') }}</th>
+                <th>{{ knp_pagination_sortable(pagination,'label.protein'|trans, 'p.protein') }}</th>
+                <th>{{ knp_pagination_sortable(pagination,'label.fat'|trans, 'p.fat') }}</th>
+                <th>{{ 'label.edit'|trans }}</th>
+                <th>{{ 'label.delete'|trans }}</th>
 
 
 
@@ -33,18 +33,39 @@
             <tbody>
             {% for diary_entry in pagination %}
                 <tr>
-                    <td>{{ diary_entry.id }}</td>
+{#                    <td>{{ diary_entry.id }}</td>#}
                     <td>{{ diary_entry.date|localizeddate }}</td>
                     <td>{{ diary_entry.meal.name }}</td>
                     <td>{{ diary_entry.product.productName }}</td>
-                    <td>
-                        {%
-                        set calories = (diary_entry.product.calories * diary_entry.serving/100)
-                         %}
-                        {{ calories }}</td>
                     <td>{{ diary_entry.serving }}</td>
+                    <td>
+                        {% set calories = (diary_entry.product.calories * diary_entry.serving/100) %}
+                        {{ calories }}
+                    </td>
+                    <td>
+                        {% set carbohydrate = (diary_entry.product.carbohydrate * diary_entry.serving/100) %}
+                        {{ carbohydrate }}
+                    </td>
+                    <td>
+                        {% set protein = (diary_entry.product.protein * diary_entry.serving/100) %}
+                        {{ protein }}
+                    </td>
+                    <td>
+                        {% set fat = (diary_entry.product.fat * diary_entry.serving/100) %}
+                        {{ fat }}
+                    </td>
 
+                    <td>
+                        <a href="{{ url('diary_entry_edit', {id: diary_entry.id}) }}" title="{{ 'action.edit'|trans }}">
+                            {{ 'action.edit'|trans }}
+                        </a>
+                    </td>
 
+                    <td>
+                        <a href="{{ url('diary_entry_delete', {id: diary_entry.id}) }}" title="{{ 'action.delete'|trans }}">
+                            {{ 'action.delete'|trans }}
+                        </a>
+                    </td>
                     {#                    <td>{{ diary_entry.title }}</td>#}
 {#                    <td>{{ diary_entry.category.title }}</td>#}
 {#                    <td>#}
@@ -54,13 +75,54 @@
 {#                        </a>#}
 {#                    </td>#}
                 </tr>
+
             {% endfor %}
             </tbody>
+            <tr class="sumup">
+                <td>
+                    {{ 'razem' }}
+                </td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    {% set serving = 0 %}
+                        {% for diary_entry in pagination %}
+                            {% set serving = serving + diary_entry.serving %}
+                        {% endfor %}
+                    {{ serving }}{{ 'g' }}
+                </td>
+                <td>
+                    {% set calories = 0 %}
+                    {% for diary_entry in pagination %}
+                        {% set calories = calories + (diary_entry.product.calories * diary_entry.serving/100) %}
+                    {% endfor %}
+                    {{ calories }}{{ 'kcal' }}
+                </td>
+                <td>
+                    {% set carbo = 0 %}
+                    {% for diary_entry in pagination %}
+                        {% set carbo = carbo + (diary_entry.product.carbohydrate * diary_entry.serving/100) %}
+                    {% endfor %}
+                    {{ carbo }}{{ 'g' }}
+                </td>
+                <td>
+                    {% set protein = 0 %}
+                    {% for diary_entry in pagination %}
+                        {% set protein = protein + (diary_entry.product.protein * diary_entry.serving/100) %}
+                    {% endfor %}
+                    {{ protein }}{{ 'g' }}
+                </td>
+                <td>
+                    {% set fat = 0 %}
+                    {% for diary_entry in pagination %}
+                        {% set fat = fat + (diary_entry.product.fat * diary_entry.serving/100) %}
+                    {% endfor %}
+                    {{ fat }}{{ 'g' }}
+                </td>
+            </tr>
         </table>
 
-        <div class="navigation text-center">
-            {{ knp_pagination_render(pagination) }}
-        </div>
 
     {% else %}
         <p>

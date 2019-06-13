@@ -1,0 +1,9 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title.diary_entry_edit',
+    page_title_param: {'%id%': diary_entry.id},
+    attr: {
+        method: 'PUT',
+        action: url('diary_entry_edit', {'id': diary_entry.id}),
+    },
+    back_to_list_path: 'diary_entry_index',
+} %}

@@ -70,6 +70,30 @@
                 <source>action.back_to_list</source>
                 <target>Wróć do listy</target>
             </trans-unit>
+            <trans-unit id="action.edit">
+                <source>action.edit</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="label.product">
+                <source>label.product</source>
+                <target>Produkt</target>
+            </trans-unit>
+            <trans-unit id="label.serving">
+                <source>label.serving</source>
+                <target>Porcja</target>
+            </trans-unit>
+            <trans-unit id="label.edit">
+                <source>label.edit</source>
+                <target>Edytowanie</target>
+            </trans-unit>
+            <trans-unit id="label.delete">
+                <source>label.delete</source>
+                <target>Usuwanie</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

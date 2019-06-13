@@ -15,7 +15,7 @@ class DiaryEntryFixtures extends AbstractBaseFixtures implements DependentFixtur
      */
     public function loadData(ObjectManager $manager): void
     {
-        $this->createMany(300, 'diary_entries', function ($i) {
+        $this->createMany(200, 'diary_entries', function ($i) {
             $entry = new DiaryEntry();
             $entry->setDate($this->faker->dateTimeBetween('-5 days', '+5 days'));
             $entry->setServing($this->faker->numberBetween(0, 100));

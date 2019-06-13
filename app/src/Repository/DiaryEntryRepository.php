@@ -20,6 +20,9 @@ class DiaryEntryRepository extends ServiceEntityRepository
         parent::__construct($registry, DiaryEntry::class);
     }
 
+    /**
+     * @return QueryBuilder
+     */
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
@@ -30,8 +33,8 @@ class DiaryEntryRepository extends ServiceEntityRepository
             //->andWhere('YEAR(t.createdAt) = YEAR(NOW()) AND MONTH(t.createdAt) = MONTH(NOW()) AND DAY(t.createdAt) = (DAY(NOW())+1)')
             //->andWhere("DATE(de.date) >= DATE_SUB(CURRENT_DATE(), 1, 'day')")
             ->andWhere('DATE(de.date) = CURRENT_DATE()')
-            ->groupBy('de.meal')
-            ->orderBy('de.date');
+            //->groupBy('de.meal')
+            ->orderBy('m.id');
     }
 
     /**
@@ -44,6 +47,34 @@ class DiaryEntryRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?: $this->createQueryBuilder('de');
+    }
+
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\DiaryEntry $diaryEntry DiaryEntry entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(DiaryEntry $diaryEntry): void
+    {
+        $this->_em->persist($diaryEntry);
+        $this->_em->flush($diaryEntry);
+    }
+
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\DiaryEntry $diaryEntry DiaryEntry entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(DiaryEntry $diaryEntry): void
+    {
+        $this->_em->remove($diaryEntry);
+        $this->_em->flush($diaryEntry);
     }
 
     // /**

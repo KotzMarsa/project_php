@@ -15,7 +15,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'p.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.product.category_name'|trans, 'c.name') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.product_name'|trans, 'p.productName') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.calories'|trans, 'p.calories') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.carbohydrate'|trans, 'p.carbohydrate') }}</th>
@@ -27,7 +27,7 @@
             <tbody>
             {% for product in pagination %}
                 <tr>
-                    <td>{{ product.id }}</td>
+                    <td>{{ product.category.name }}</td>
                     <td>{{ product.productName }}</td>
                     <td>{{ product.calories }}</td>
                     <td>{{ product.carbohydrate }}</td>

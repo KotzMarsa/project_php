@@ -35,6 +35,7 @@ class ProductRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->join('p.category', 'c')
             ->orderBy('p.id', 'DESC');
     }
 
