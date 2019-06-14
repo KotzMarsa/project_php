@@ -49,6 +49,7 @@
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/class-loader" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/config" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/console" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/contracts" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/debug" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/dependency-injection" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/doctrine-bridge" />
@@ -60,7 +61,6 @@
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/form" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/framework-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/http-client" />
-      <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/http-client-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/http-foundation" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/http-kernel" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/inflector" />
@@ -77,10 +77,13 @@
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/property-access" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/security" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/security-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/stopwatch" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/translation" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/twig-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/twig-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/validator" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/var-dumper" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/web-profiler-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/web-server-bundle" />

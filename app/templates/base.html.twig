@@ -37,7 +37,28 @@
     {% endblock %}
 </head>
 <body>
+{% block user %}
+    <div class="navbar sticky-top">
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <div>{{ 'Zalogowano jako ' }}{{  app.user.name }}</div>
+            <div>
+                <a href="{{ url('security_logout') }}">{{ 'action.logout'|trans }}</a>
+            </div>
+        {% else %}
+            <div>
+                <a href="{{ url('security_login') }}">{{ 'action.login'|trans }}</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
 <div class="container-fluid">
+    {% for type, messages in app.session.flashBag.all %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}" role="alert">
+                {{ message|trans }}
+            </div>
+        {% endfor %}
+    {% endfor %}
     {% block body %}{% endblock %}
 </div>
 {% block javascripts %}

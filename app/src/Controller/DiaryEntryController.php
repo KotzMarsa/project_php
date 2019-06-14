@@ -34,7 +34,7 @@ class DiaryEntryController extends AbstractController
      * Index action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Repository\DiaryEntryRepository        $repository DiaryEntry repository
+     * @param \App\Repository\DiaryEntryRepository      $repository DiaryEntry repository
      * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -62,6 +62,7 @@ class DiaryEntryController extends AbstractController
      * View action.
      *
      * @param DiaryEntry $diaryEntry
+     *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
@@ -82,7 +83,7 @@ class DiaryEntryController extends AbstractController
      * New action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Repository\DiaryEntryRepository        $repository DiaryEntry repository
+     * @param \App\Repository\DiaryEntryRepository      $repository DiaryEntry repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -100,10 +101,12 @@ class DiaryEntryController extends AbstractController
         $entry = new DiaryEntry();
         $form = $this->createForm(DiaryEntryType::class, $entry);
         $form->handleRequest($request);
+        $entry->setDate(new \DateTime());
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entry->setDate(new \DateTime());
             $repository->save($entry);
+
+            $this->addFlash('success', 'message.created_successfully');
 
             return $this->redirectToRoute('diary_entry_index');
         }
@@ -118,8 +121,8 @@ class DiaryEntryController extends AbstractController
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Entity\DiaryEntry                          $diaryEntry       DiaryEntry entity
-     * @param \App\Repository\DiaryEntryRepository            $repository DiaryEntry repository
+     * @param \App\Entity\DiaryEntry                    $diaryEntry DiaryEntry entity
+     * @param \App\Repository\DiaryEntryRepository      $repository DiaryEntry repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -159,8 +162,8 @@ class DiaryEntryController extends AbstractController
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Entity\DiaryEntry                          $diaryEntry       DiaryEntry entity
-     * @param \App\Repository\DiaryEntryRepository            $repository DiaryEntry repository
+     * @param \App\Entity\DiaryEntry                    $diaryEntry DiaryEntry entity
+     * @param \App\Repository\DiaryEntryRepository      $repository DiaryEntry repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

@@ -69,11 +69,12 @@ class ProductController extends AbstractController
             ['product' => $product]
         );
     }
+
     /**
      * New action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Repository\ProductRepository        $repository Product repository
+     * @param \App\Repository\ProductRepository         $repository Product repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -91,10 +92,11 @@ class ProductController extends AbstractController
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
-
+        $product->setIsAccepted(0);
         if ($form->isSubmitted() && $form->isValid()) {
-            $product->setIsAccepted(0);
             $repository->save($product);
+
+            $this->addFlash('success', 'message.created_successfully');
 
             return $this->redirectToRoute('product_index');
         }
