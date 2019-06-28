@@ -21,6 +21,8 @@ class DiaryEntryFixtures extends AbstractBaseFixtures implements DependentFixtur
             $entry->setServing($this->faker->numberBetween(0, 1000));
             $entry->setProduct($this->getRandomReference('products'));
             $entry->setMeal($this->getRandomReference('meals'));
+            $entry->setUser($this->getRandomReference('users'));
+
             return $entry;
         });
 
@@ -35,6 +37,6 @@ class DiaryEntryFixtures extends AbstractBaseFixtures implements DependentFixtur
      */
     public function getDependencies(): array
     {
-        return [ProductFixtures::class];
+        return [ProductFixtures::class, MealFixtures::class, UserFixtures::class];
     }
 }

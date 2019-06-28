@@ -2,8 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Product;
-use App\Entity\DiaryEntry;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -37,7 +38,24 @@ class ProductRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->join('p.category', 'c')
+            ->join('p.user', 'u')
             ->orderBy('p.id', 'DESC');
+    }
+
+    /**
+     * Query products by category.
+     *
+     * @param int $categoryId
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryByCategory(int $categoryId): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->andWhere('p.category = :category')
+                ->setParameter('category', $categoryId);
+
+        return $queryBuilder;
     }
 
     /**
@@ -65,6 +83,7 @@ class ProductRepository extends ServiceEntityRepository
         $this->_em->persist($product);
         $this->_em->flush($product);
     }
+
     /**
      * Delete record.
      *
@@ -78,6 +97,7 @@ class ProductRepository extends ServiceEntityRepository
         $this->_em->remove($product);
         $this->_em->flush($product);
     }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

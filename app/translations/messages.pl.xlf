@@ -110,7 +110,10 @@
                 <source>title.user_data_list</source>
                 <target>Lista wpisów</target>
             </trans-unit>
-
+            <trans-unit id="title.category_list">
+                <source>title.category_list</source>
+                <target>Lista produktów z kategorii</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

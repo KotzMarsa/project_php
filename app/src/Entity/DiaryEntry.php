@@ -3,10 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DiaryEntryRepository")
@@ -34,7 +30,6 @@ class DiaryEntry
      * @var \Date
      *
      * @ORM\Column(type="datetime")
-     *
      */
     private $date;
 
@@ -54,6 +49,12 @@ class DiaryEntry
      * @ORM\JoinColumn(nullable=false)
      */
     private $meal;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="diaryEntries")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     /**
      * @return int|null
@@ -159,6 +160,26 @@ class DiaryEntry
     public function setMeal(?Meal $meal): self
     {
         $this->meal = $meal;
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User|null $user
+     *
+     * @return DiaryEntry
+     */
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

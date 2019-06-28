@@ -59,15 +59,22 @@ class ProductController extends AbstractController
      *
      * @Route(
      *     "/{id}",
-     *     name="product_view",
+     *     name="product_category",
      *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function view(Product $product): Response
+    public function view(Request $request, ProductRepository $repository, PaginatorInterface $paginator): Response
     {
+        $categoryId = $request->get('id');
+        $pagination = $paginator->paginate(
+            $repository->queryByCategory($categoryId),
+            $request->query->getInt('page', 1),
+            Product::NUMBER_OF_ITEMS
+        );
+
         return $this->render(
             'product/view.html.twig',
-            ['product' => $product]
+            ['pagination' => $pagination]
         );
     }
 
@@ -101,6 +108,7 @@ class ProductController extends AbstractController
 
             return $this->redirectToRoute('product_index');
         }
+        $user->setName($this->faker->firstName);
 
         return $this->render(
             'product/new.html.twig',
@@ -145,6 +153,47 @@ class ProductController extends AbstractController
 
         return $this->render(
             'product/delete.html.twig',
+            [
+                'form' => $form->createView(),
+                'product' => $product,
+            ]
+        );
+    }
+
+    /**
+     * Accept action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Entity\Product                       $product    Product entity
+     * @param \App\Repository\ProductRepository         $repository Product repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/edit",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="product_accept",
+     * )
+     */
+    public function accept(Request $request, Product $product, ProductRepository $repository): Response
+    {
+        $form = $this->createForm(ProductType::class, $product, ['method' => 'PUT']);
+        $form->handleRequest($request);
+        $product->setIsAccepted(1);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repository->save($product);
+
+            $this->addFlash('success', 'message.updated_successfully');
+
+            return $this->redirectToRoute('product_index');
+        }
+
+        return $this->render(
+            'product/accept.html.twig',
             [
                 'form' => $form->createView(),
                 'product' => $product,

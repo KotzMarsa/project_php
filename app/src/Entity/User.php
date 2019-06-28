@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
@@ -97,9 +96,21 @@ class User implements UserInterface
      */
     private $userData;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DiaryEntry", mappedBy="user", orphanRemoval=true)
+     */
+    private $diaryEntries;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="user", orphanRemoval=true)
+     */
+    private $products;
+
     public function __construct()
     {
         $this->userData = new ArrayCollection();
+        $this->diaryEntries = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,7 +148,8 @@ class User implements UserInterface
         // guarantee every user at least has ROLE_USER
         $roles[] = static::ROLE_USER;
 
-        return array_unique($roles);    }
+        return array_unique($roles);
+    }
 
     public function setRoles(array $roles): self
     {
@@ -145,6 +157,7 @@ class User implements UserInterface
 
         return $this;
     }
+
     /**
      * {@inheritdoc}
      *
@@ -199,6 +212,68 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($userData->getUser() === $this) {
                 $userData->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DiaryEntry[]
+     */
+    public function getDiaryEntries(): Collection
+    {
+        return $this->diaryEntries;
+    }
+
+    public function addDiaryEntry(DiaryEntry $diaryEntry): self
+    {
+        if (!$this->diaryEntries->contains($diaryEntry)) {
+            $this->diaryEntries[] = $diaryEntry;
+            $diaryEntry->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiaryEntry(DiaryEntry $diaryEntry): self
+    {
+        if ($this->diaryEntries->contains($diaryEntry)) {
+            $this->diaryEntries->removeElement($diaryEntry);
+            // set the owning side to null (unless already changed)
+            if ($diaryEntry->getUser() === $this) {
+                $diaryEntry->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            // set the owning side to null (unless already changed)
+            if ($product->getUser() === $this) {
+                $product->setUser(null);
             }
         }
 
