@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.user_data_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.user_data_list'|trans }}</h1>
+    {% if pagination is defined and pagination|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.userId'|trans, 'ud.user') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.date'|trans, 'ud.date') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.calorieGoal'|trans, 'ud.calorie_goal') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.weight'|trans, 'ud.weight') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.height'|trans, 'ud.height') }}</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for user_data in pagination %}
+                <tr>
+                    <td>{{ user_data.user.name }}</td>
+                    <td>{{ user_data.date|localizeddate }}</td>
+                    <td>{{ user_data.calorieGoal }}</td>
+                    <td>{{ user_data.weight }}</td>
+                    <td>{{ user_data.height }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+
+{% endblock %}

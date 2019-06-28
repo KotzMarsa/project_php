@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use App\Entity\DiaryEntry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -64,7 +65,19 @@ class ProductRepository extends ServiceEntityRepository
         $this->_em->persist($product);
         $this->_em->flush($product);
     }
-
+    /**
+     * Delete record.
+     *
+     * @param \App\Entity\Product $product Product entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Product $product): void
+    {
+        $this->_em->remove($product);
+        $this->_em->flush($product);
+    }
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

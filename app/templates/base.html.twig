@@ -39,6 +39,15 @@
 <body>
 {% block user %}
     <div class="navbar sticky-top">
+        <div>
+            <a href="{{ url('diary_entry_index') }}">{{ 'label.diary_entries'|trans }}</a>
+        </div>
+        <div>
+            <a href="{{ url('product_index') }}">{{ 'label.products'|trans }}</a>
+        </div>
+        <div>
+            <a href="{{ url('user_data_index') }}">{{ 'label.user_datas'|trans }}</a>
+        </div>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <div>{{ 'Zalogowano jako ' }}{{  app.user.name }}</div>
             <div>

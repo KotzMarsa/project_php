@@ -10,6 +10,7 @@ use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -104,6 +105,50 @@ class ProductController extends AbstractController
         return $this->render(
             'product/new.html.twig',
             ['form' => $form->createView()]
+        );
+    }
+
+    /**
+     * Delete action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Entity\Product                       $product    Product entity
+     * @param \App\Repository\ProductRepository         $repository Product repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/delete",
+     *     methods={"GET", "DELETE"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="product_delete",
+     * )
+     */
+    public function delete(Request $request, Product $product, ProductRepository $repository): Response
+    {
+        $form = $this->createForm(FormType::class, $product, ['method' => 'DELETE']);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repository->delete($product);
+            $this->addFlash('success', 'message.deleted_successfully');
+
+            return $this->redirectToRoute('product_index');
+        }
+
+        return $this->render(
+            'product/delete.html.twig',
+            [
+                'form' => $form->createView(),
+                'product' => $product,
+            ]
         );
     }
 }

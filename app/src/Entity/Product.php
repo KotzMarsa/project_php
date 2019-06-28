@@ -87,7 +87,7 @@ class Product
     private $isAccepted;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DiaryEntry", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="App\Entity\DiaryEntry", mappedBy="product", orphanRemoval=true)
      */
     private $diaryEntries;
 

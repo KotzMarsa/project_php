@@ -1,14 +1,12 @@
 <?php
 /**
- * Diary entry type.
+ * User data type.
  */
 
 namespace App\Form;
 
-use App\Entity\Category;
-use App\Entity\DiaryEntry;
-use App\Entity\Product;
-use App\Entity\Meal;
+use App\Entity\UserData;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class DiaryEntryType
  */
-class DiaryEntryType extends AbstractType
+class UserDataType extends AbstractType
 {
     /**
      * Builds the form.
@@ -34,49 +32,28 @@ class DiaryEntryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'meal',
-            EntityType::class,
-            [
-                'class' => Meal::class,
-                'choice_label' => function ($meal) {
-                    return $meal->getName();
-                },
-                'label' => 'label.meal',
-                'placeholder' => 'label.none',
-                'required' => true,
-            ]
-        );
-//        $builder->add(
-//            'category',
-//            EntityType::class,
-//            [
-//                'class' => Category::class,
-//                'choice_label' => function ($category) {
-//                    return ($category->getName());
-//                },
-//                'label' => 'label.category',
-//                'placeholder' => 'label.none',
-//                'required' => true,
-//            ]
-//        );
-        $builder->add(
-            'product',
-            EntityType::class,
-            [
-                'class' => Product::class,
-                'choice_label' => function ($product) {
-                    return $product->getProductName();
-                },
-                'label' => 'label.product_name',
-                'placeholder' => 'label.none',
-                'required' => true,
-            ]
-        );
-        $builder->add(
-            'serving',
+            'calorieGoal',
             TextType::class,
             [
-                'label' => 'label.serving',
+                'label' => 'label.calorieGoal',
+                'required' => true,
+                'attr' => ['max_length' => 100],
+            ]
+        );
+        $builder->add(
+            'weight',
+            TextType::class,
+            [
+                'label' => 'label.weight',
+                'required' => true,
+                'attr' => ['max_length' => 100],
+            ]
+        );
+        $builder->add(
+            'height',
+            TextType::class,
+            [
+                'label' => 'label.height',
                 'required' => true,
                 'attr' => ['max_length' => 100],
             ]
@@ -90,7 +67,7 @@ class DiaryEntryType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => DiaryEntry::class]);
+        $resolver->setDefaults(['data_class' => UserData::class]);
     }
 
     /**
@@ -103,6 +80,6 @@ class DiaryEntryType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'diary_entry';
+        return 'user_data';
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -90,6 +92,16 @@ class User implements UserInterface
      */
     private $roles = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserData", mappedBy="user", orphanRemoval=true)
+     */
+    private $userData;
+
+    public function __construct()
+    {
+        $this->userData = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -160,5 +172,36 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|UserData[]
+     */
+    public function getUserData(): Collection
+    {
+        return $this->userData;
+    }
+
+    public function addUserData(UserData $userData): self
+    {
+        if (!$this->userData->contains($userData)) {
+            $this->userData[] = $userData;
+            $userData->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserData(UserData $userData): self
+    {
+        if ($this->userData->contains($userData)) {
+            $this->userData->removeElement($userData);
+            // set the owning side to null (unless already changed)
+            if ($userData->getUser() === $this) {
+                $userData->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

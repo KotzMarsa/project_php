@@ -94,6 +94,23 @@
                 <source>label.delete</source>
                 <target>Usuwanie</target>
             </trans-unit>
+            <trans-unit id="label.diary_entries">
+                <source>label.diary_entries</source>
+                <target>Wpisy</target>
+            </trans-unit>
+            <trans-unit id="label.products">
+                <source>label.products</source>
+                <target>Produkty</target>
+            </trans-unit>
+            <trans-unit id="label.user_datas">
+                <source>label.user_datas</source>
+                <target>Historia</target>
+            </trans-unit>
+            <trans-unit id="title.user_data_list">
+                <source>title.user_data_list</source>
+                <target>Lista wpisów</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>
