@@ -101,6 +101,7 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
         $product->setIsAccepted(0);
+        $product->setUser($this->getUser());
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($product);
 
@@ -108,7 +109,6 @@ class ProductController extends AbstractController
 
             return $this->redirectToRoute('product_index');
         }
-        $user->setName($this->faker->firstName);
 
         return $this->render(
             'product/new.html.twig',

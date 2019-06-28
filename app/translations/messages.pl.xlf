@@ -2,6 +2,9 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
+
+            <!-- Labels-->
+
             <trans-unit id="label.id">
                 <source>label.id</source>
                 <target>Id</target>
@@ -46,10 +49,6 @@
                 <source>label.fat</source>
                 <target>Tłuszcz</target>
             </trans-unit>
-            <trans-unit id="title.diary_entry_list">
-                <source>title.diary_entry_list</source>
-                <target>Lista wpisów</target>
-            </trans-unit>
             <trans-unit id="label.date">
                 <source>label.date</source>
                 <target>Data</target>
@@ -57,26 +56,6 @@
             <trans-unit id="label.meal">
                 <source>label.meal</source>
                 <target>Posiłek</target>
-            </trans-unit>
-            <trans-unit id="title.product_new">
-                <source>title.product_new</source>
-                <target>Dodaj produkt</target>
-            </trans-unit>
-            <trans-unit id="action.save">
-                <source>action.save</source>
-                <target>Zapisz</target>
-            </trans-unit>
-            <trans-unit id="action.back_to_list">
-                <source>action.back_to_list</source>
-                <target>Wróć do listy</target>
-            </trans-unit>
-            <trans-unit id="action.edit">
-                <source>action.edit</source>
-                <target>Edytuj</target>
-            </trans-unit>
-            <trans-unit id="action.delete">
-                <source>action.delete</source>
-                <target>Usuń</target>
             </trans-unit>
             <trans-unit id="label.product">
                 <source>label.product</source>
@@ -104,7 +83,27 @@
             </trans-unit>
             <trans-unit id="label.user_datas">
                 <source>label.user_datas</source>
-                <target>Historia</target>
+                <target>Edycja danych</target>
+            </trans-unit>
+            <trans-unit id="label.user_panel">
+                <source>label.user_panel</source>
+                <target>Edycja profilu</target>
+            </trans-unit>
+            <trans-unit id="label.none">
+                <source>label.none</source>
+                <target>Brak</target>
+            </trans-unit>
+
+
+            <!-- Titles -->
+
+            <trans-unit id="title.diary_entry_list">
+                <source>title.diary_entry_list</source>
+                <target>Lista wpisów</target>
+            </trans-unit>
+            <trans-unit id="title.product_new">
+                <source>title.product_new</source>
+                <target>Dodaj produkt</target>
             </trans-unit>
             <trans-unit id="title.user_data_list">
                 <source>title.user_data_list</source>
@@ -114,6 +113,60 @@
                 <source>title.category_list</source>
                 <target>Lista produktów z kategorii</target>
             </trans-unit>
+            <trans-unit id="title.user">
+                <source>title.user</source>
+                <target>Użytkownik</target>
+            </trans-unit>
+
+            <!-- Actions -->
+
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Zapisz</target>
+            </trans-unit>
+            <trans-unit id="action.back_to_list">
+                <source>action.back_to_list</source>
+                <target>Wróć do listy</target>
+            </trans-unit>
+            <trans-unit id="action.edit">
+                <source>action.edit</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+                <source>action.logout</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+            <trans-unit id="action.changeName">
+                <source>action.changeName</source>
+                <target>Zmień nazwę</target>
+            </trans-unit>
+            <trans-unit id="action.changePassword">
+                <source>action.changePassword</source>
+                <target>Zmień hasło</target>
+            </trans-unit>
+            <trans-unit id="action.diary_entry_new">
+                <source>action.diary_entry_new</source>
+                <target>Dodaj wpis</target>
+            </trans-unit>
+            <trans-unit id="action.product_new">
+                <source>action.product_new</source>
+                <target>Dodaj produkt</target>
+            </trans-unit>
+            <trans-unit id="action.accept">
+                <source>action.accept</source>
+                <target>Zaakceptuj</target>
+            </trans-unit>
+
+            <!-- Messages -->
+            <trans-unit id="message.created_successfully">
+                <source>message.created_successfully</source>
+                <target>Utworzono pomyślnie!</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

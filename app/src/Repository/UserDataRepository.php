@@ -32,6 +32,7 @@ class UserDataRepository extends ServiceEntityRepository
             ->join('ud.user', 'u')
             ->orderBy('ud.date', 'DESC');
     }
+
     /**
      * Query datas by user.
      *
@@ -50,6 +51,30 @@ class UserDataRepository extends ServiceEntityRepository
 
         return $queryBuilder;
     }
+
+    /**
+     * Get actual weight.
+     *
+     * @param \App\Entity\User|null $user User entity
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function getActualWeight(User $user = null): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        if (!is_null($user)) {
+            $queryBuilder
+                ->andWhere('DATE(ud.date) <= CURRENT_DATE()')
+                ->orderBy('ud.date', 'ASC')
+                ->setMaxResults(1);
+        }
+
+        $weight = $queryBuilder[0];
+
+        return $weight;
+    }
+
     /**
      * Get or create new query builder.
      *
@@ -89,7 +114,7 @@ class UserDataRepository extends ServiceEntityRepository
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
-        ;
+        ;->setMaxResults(1)
     }
     */
 

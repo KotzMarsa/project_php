@@ -6,8 +6,12 @@
 
 {% block body %}
     <h1>{{ 'title.diary_entry_list'|trans }}</h1>
+    <div class = "float-right">
+        <a href="{{ url('diary_entry_new') }}" class="btn btn-primary" role="button" title="{{ 'action.diary_entry_new'|trans }}">
+        {{ 'action.diary_entry_new'|trans }}
+    </a>
+    </div>
     {% if pagination is defined and pagination|length %}
-
         <table class="table table-striped">
             <thead>
             <tr>

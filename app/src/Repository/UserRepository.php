@@ -18,7 +18,30 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
-
+    /**
+     * Save record.
+     *
+     * @param User $user
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function saveUser(User $user): void
+    {
+        $this->_em->persist($user);
+        $this->_em->flush($user);
+    }
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?: $this->createQueryBuilder('u');
+    }
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

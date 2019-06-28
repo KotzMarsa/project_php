@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\DiaryEntry;
 use App\Entity\UserData;
-use App\Form\DiaryEntryType;
 use App\Form\UserDataType;
-use App\Repository\DiaryEntryRepository;
 use App\Repository\UserDataRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class TaskController.
+ * Class UserDataController.
  *
  * @Route("/user_data")
  */
@@ -24,11 +21,11 @@ class UserDataController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param Request $request    HTTP request
      * @param \App\Repository\UserDataRepository        $repository Repository
      * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/",
@@ -52,10 +49,10 @@ class UserDataController extends AbstractController
     /**
      * New action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param Request $request    HTTP request
      * @param \App\Repository\UserDataRepository        $repository UserData repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -85,8 +82,26 @@ class UserDataController extends AbstractController
 
         return $this->render(
             'user_data/new.html.twig',
-            ['form' => $form->createView()]
+            ['form' => $form->createView(),
+                'user' => $userData, ]
         );
     }
 
+    /**
+     * Actual weight.
+     *
+     * @param Request $request    HTTP request
+     * @param \App\Repository\UserDataRepository        $repository Repository
+     *
+     * @return Response HTTP response
+     */
+    public function actualWeight(UserDataRepository $repository): int
+    {
+        $weight = $repository->getActualWeight($this->getUser());
+
+        return $this->render(
+            'user_data/index.html.twig',
+            ['weight' => $weight]
+        );
+    }
 }
