@@ -93,7 +93,54 @@
                 <source>label.none</source>
                 <target>Brak</target>
             </trans-unit>
-
+            <trans-unit id="label.name">
+                <source>label.name</source>
+                <target>Nazwa użytkownika</target>
+            </trans-unit>
+            <trans-unit id="label.password">
+                <source>label.password</source>
+                <target>Hasło</target>
+            </trans-unit>
+            <trans-unit id="label.repeat_password">
+                <source>label.repeat_password</source>
+                <target>Powtórz hasło</target>
+            </trans-unit>
+            <trans-unit id="label.product.user">
+                <source>label.product.user</source>
+                <target>Autor</target>
+            </trans-unit>
+            <trans-unit id="label.product.category_name">
+                <source>label.product.category_name</source>
+                <target>Kategoria</target>
+            </trans-unit>
+            <trans-unit id="label.accept">
+                <source>label.accept</source>
+                <target>Akceptowanie</target>
+            </trans-unit>
+            <trans-unit id="label.is_accepted">
+                <source>label.is_accepted</source>
+                <target>Zaakceptowane</target>
+            </trans-unit>
+            <trans-unit id="label.userId">
+                <source>label.userId</source>
+                <target>ID użytkownika</target>
+            </trans-unit>
+            <trans-unit id="label.calorieGoal">
+                <source>label.calorieGoal</source>
+                <target>Limit kalorii</target>
+            </trans-unit>
+            <trans-unit id="label.weight">
+                <source>label.weight</source>
+                <target>Waga</target>
+            </trans-unit>
+            <trans-unit id="label.height">
+                <source>label.height</source>
+                <target>Wzrost</target>
+            </trans-unit>
+            <trans-unit id="label.user_name">
+                <source>label.user_name</source>
+                <target>Nazwa</target>
+            </trans-unit>
 
             <!-- Titles -->
 
@@ -117,6 +164,46 @@
                 <source>title.user</source>
                 <target>Użytkownik</target>
             </trans-unit>
+            <trans-unit id="title.login">
+                <source>title.login</source>
+                <target>Logowanie</target>
+            </trans-unit>
+            <trans-unit id="title.register">
+                <source>title.register</source>
+                <target>Rejestracja</target>
+            </trans-unit>
+            <trans-unit id="title.user_register">
+                <source>title.user_register</source>
+                <target>Rejestracja</target>
+            </trans-unit>
+            <trans-unit id="title.user_data_new">
+                <source>title.user_data_new</source>
+                <target>Wprowadź nowe dane</target>
+            </trans-unit>
+            <trans-unit id="title.user_data">
+                <source>title.user_data</source>
+                <target>Twoje dane</target>
+            </trans-unit>
+            <trans-unit id="title.user_name">
+                <source>title.user_name</source>
+                <target>Wpisz nową nazwę</target>
+            </trans-unit>
+            <trans-unit id="title.user_password">
+                <source>title.user_password</source>
+                <target>Wpisz nowe hasło</target>
+            </trans-unit>
+            <trans-unit id="title.diary_entry_new">
+                <source>title.diary_entry_new</source>
+                <target>Nowy wpis</target>
+            </trans-unit>
+            <trans-unit id="title.diary_entry_edit">
+                <source>title.diary_entry_edit</source>
+                <target>Edytuj wpis</target>
+            </trans-unit>
+            <trans-unit id="title.diary_entry_delete">
+                <source>title.diary_entry_delete</source>
+                <target>Usuń wpis</target>
+            </trans-unit>
 
             <!-- Actions -->
 
@@ -126,7 +213,7 @@
             </trans-unit>
             <trans-unit id="action.back_to_list">
                 <source>action.back_to_list</source>
-                <target>Wróć do listy</target>
+                <target>Powrót</target>
             </trans-unit>
             <trans-unit id="action.edit">
                 <source>action.edit</source>
@@ -160,13 +247,36 @@
                 <source>action.accept</source>
                 <target>Zaakceptuj</target>
             </trans-unit>
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Zarejestruj się</target>
+            </trans-unit>
+            <trans-unit id="action.user_data_new">
+                <source>action.user_data_new</source>
+                <target>Dodaj nowe</target>
+            </trans-unit>
 
             <!-- Messages -->
             <trans-unit id="message.created_successfully">
                 <source>message.created_successfully</source>
                 <target>Utworzono pomyślnie!</target>
             </trans-unit>
-
+            <trans-unit id="message.updated_successfully">
+                <source>message.updated_successfully</source>
+                <target>Zaktualizowano pomyślnie!</target>
+            </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Usunięto pomyślnie!</target>
+            </trans-unit>
+            <trans-unit id="message.empty_list">
+                <source>message.empty_list</source>
+                <target>Lista jest pusta.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

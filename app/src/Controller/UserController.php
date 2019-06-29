@@ -11,7 +11,6 @@ use App\Form\UserPasswordType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +27,10 @@ class UserController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param Request        $request    HTTP request
-     * @param User           $user
-     * @param UserRepository $repository User repository
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param Request                                   $request    HTTP request
+     * @param User                                      $user
+     * @param UserRepository                            $repository User repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -69,8 +68,6 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="user_password",
      * )
-     *
-
      */
     public function changePassword(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -97,12 +94,13 @@ class UserController extends AbstractController
             ]
         );
     }
+
     /**
      * ChangeName action.
      *
-     * @param Request                      $request         HTTP request
-     * @param User                         $user
-     * @param UserRepository               $repository      User repository
+     * @param Request        $request    HTTP request
+     * @param User           $user
+     * @param UserRepository $repository User repository
      *
      * @return Response HTTP response
      *
@@ -115,7 +113,6 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="user_name",
      * )
-     *
      */
     public function changeName(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder): Response
     {

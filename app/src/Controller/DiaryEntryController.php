@@ -5,16 +5,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\DiaryEntry;
-use App\Entity\Product;
-use App\Entity\User;
 use App\Form\DiaryEntryType;
-use App\Form\ProductType;
+use App\Form\SearchDateType;
 use App\Repository\DiaryEntryRepository;
-use App\Repository\ProductRepository;
-use Doctrine\DBAL\Types\TextType;
+use App\Repository\UserDataRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class DiaryEntryController.
  *
  * @Route("/diary_entry")
+ *
+ * @IsGranted("ROLE_USER",)
  */
 class DiaryEntryController extends AbstractController
 {
@@ -41,11 +40,12 @@ class DiaryEntryController extends AbstractController
      *     "/",
      *     name="diary_entry_index",
      * )
+     * @IsGranted("ROLE_USER",)
      */
     public function index(Request $request, DiaryEntryRepository $repository, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-            $repository->queryAll(),
+            $repository->queryByUser($this->getUser()),
             $request->query->getInt('page', 1),
             DiaryEntry::NUMBER_OF_ITEMS
         );
@@ -59,21 +59,39 @@ class DiaryEntryController extends AbstractController
     /**
      * View action.
      *
-     * @param DiaryEntry $diaryEntry
+     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
+     * @param \App\Repository\DiaryEntryRepository      $repository DiaryEntry repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
-     *     "/{id}",
+     *     "/{date}",
      *     name="diary_entry_view",
-     *     requirements={"id": "[1-9]\d*"},
      * )
+     * @IsGranted("ROLE_USER",)
      */
-    public function view(DiaryEntry $diaryEntry): Response
+    public function view(Request $request, DiaryEntryRepository $repository, PaginatorInterface $paginator): Response
     {
+        $entry = new DiaryEntry();
+        $entry->setDate(new \DateTime());
+        $form = $this->createForm(SearchDateType::class, $entry);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repository->save($entry);
+
+            $this->addFlash('success', 'message.created_successfully');
+
+            return $this->redirectToRoute('diary_entry_index');
+        }
+
         return $this->render(
             'diary_entry/view.html.twig',
-            ['diary_entry' => $diaryEntry]
+            ['form' => $form->createView()]
         );
     }
 
@@ -93,6 +111,7 @@ class DiaryEntryController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="diary_entry_new",
      * )
+     * @IsGranted("ROLE_USER",)
      */
     public function new(Request $request, DiaryEntryRepository $repository): Response
     {
@@ -100,6 +119,7 @@ class DiaryEntryController extends AbstractController
         $form = $this->createForm(DiaryEntryType::class, $entry);
         $form->handleRequest($request);
         $entry->setDate(new \DateTime());
+        $entry->setUser($this->getUser());
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($entry);
@@ -133,6 +153,7 @@ class DiaryEntryController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="diary_entry_edit",
      * )
+     * @IsGranted("ROLE_USER",)
      */
     public function edit(Request $request, DiaryEntry $diaryEntry, DiaryEntryRepository $repository): Response
     {
@@ -174,6 +195,7 @@ class DiaryEntryController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="diary_entry_delete",
      * )
+     * @IsGranted("ROLE_USER",)
      */
     public function delete(Request $request, DiaryEntry $diaryEntry, DiaryEntryRepository $repository): Response
     {

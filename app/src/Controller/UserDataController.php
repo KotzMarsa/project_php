@@ -87,21 +87,29 @@ class UserDataController extends AbstractController
         );
     }
 
-    /**
-     * Actual weight.
-     *
-     * @param Request $request    HTTP request
-     * @param \App\Repository\UserDataRepository        $repository Repository
-     *
-     * @return Response HTTP response
-     */
-    public function actualWeight(UserDataRepository $repository): int
-    {
-        $weight = $repository->getActualWeight($this->getUser());
-
-        return $this->render(
-            'user_data/index.html.twig',
-            ['weight' => $weight]
-        );
-    }
+//    /**
+//     * Actual weight.
+//     *
+//     * @param Request $request    HTTP request
+//     * @param \App\Repository\UserDataRepository        $repository Repository
+//     * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
+//     * @return Response HTTP response
+//     * @Route(
+//     *     "/",
+//     *     name="user_data_index",
+//     * )
+//     */
+//    public function actualWeight(UserDataRepository $repository, Request $request, PaginatorInterface $paginator): Response
+//    {
+//        $pagination = $paginator->paginate(
+//            $repository->getActualWeight($this->getUser()),
+//            $request->query->getInt('page', 1),
+//            UserData::NUMBER_OF_ITEMS
+//        );
+//
+//        return $this->render(
+//            'user_data/index.html.twig',
+//            ['weight' => $pagination]
+//        );
+//    }
 }

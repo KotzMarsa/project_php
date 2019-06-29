@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\DiaryEntry;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -21,20 +22,69 @@ class DiaryEntryRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param \App\Entity\User|null $user User entity
+     *
      * @return QueryBuilder
      */
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+                ->join('de.product', 'p')
+                ->join('de.meal', 'm')
+                //->join('de.product', 'p')
+                //->join('p.product_name', 'p')
+                //->andWhere('YEAR(t.createdAt) = YEAR(NOW()) AND MONTH(t.createdAt) = MONTH(NOW()) AND DAY(t.createdAt) = (DAY(NOW())+1)')
+                //->andWhere("DATE(de.date) >= DATE_SUB(CURRENT_DATE(), 1, 'day')")
+                ->andWhere('DATE(de.date) = CURRENT_DATE()')
+                //->groupBy('de.meal')
+                ->orderBy('m.id');
+    }
+
+    /**
+     * Query datas by user.
+     *
+     * @param \App\Entity\User|null $user User entity
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryByUser(User $user = null): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        if (!is_null($user)) {
+            $queryBuilder->andWhere('de.user = :name')
+                ->setParameter('name', $user);
+        }
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Query datas by user.
+     *
+     * @param \App\Entity\User|null $user User entity
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryByDate(User $user = null, $date): QueryBuilder
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder()
             ->join('de.product', 'p')
             ->join('de.meal', 'm')
             //->join('de.product', 'p')
             //->join('p.product_name', 'p')
             //->andWhere('YEAR(t.createdAt) = YEAR(NOW()) AND MONTH(t.createdAt) = MONTH(NOW()) AND DAY(t.createdAt) = (DAY(NOW())+1)')
             //->andWhere("DATE(de.date) >= DATE_SUB(CURRENT_DATE(), 1, 'day')")
-            ->andWhere('DATE(de.date) = CURRENT_DATE()')
+            ->andWhere('DATE(de.date) = DATE($date)')
             //->groupBy('de.meal')
             ->orderBy('m.id');
+
+        if (!is_null($user)) {
+            $queryBuilder->andWhere('de.user = :name')
+                ->setParameter('name', $user);
+        }
+
+        return $queryBuilder;
     }
 
     /**

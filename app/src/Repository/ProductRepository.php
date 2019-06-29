@@ -59,6 +59,46 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
+     * Query datas by user.
+     *
+     * @param \App\Entity\User|null $user User entity
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryByUser(User $user = null): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+        if (!is_null($user)) {
+            $queryBuilder->andWhere('p.user = :name')
+            ->setParameter('name', $user)
+                ->orWhere('p.isAccepted = 1');
+        }
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Query products by category and user.
+     *
+     * @param int $categoryId
+     *
+     * @param \App\Entity\User|null $user User entity
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryByCategoryAndUser(int $categoryId, User $user = null): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+        $queryBuilder->andWhere('p.category = :category')
+            ->setParameter('category', $categoryId)
+            ->andWhere('p.user = :name')
+            ->setParameter('name', $user)
+            ->orWhere('p.isAccepted = 1');
+
+        return $queryBuilder;
+    }
+
+    /**
      * Get or create new query builder.
      *
      * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder

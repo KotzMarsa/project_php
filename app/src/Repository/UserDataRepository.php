@@ -64,15 +64,16 @@ class UserDataRepository extends ServiceEntityRepository
         $queryBuilder = $this->queryAll();
 
         if (!is_null($user)) {
-            $queryBuilder
-                ->andWhere('DATE(ud.date) <= CURRENT_DATE()')
-                ->orderBy('ud.date', 'ASC')
-                ->setMaxResults(1);
+            $queryBuilder->andWhere('DATE(ud.date) <= CURRENT_DATE()')
+                ->orderBy('ud.date', 'DESC')
+                ->andWhere('ud.user = :name')
+                    ->setParameter('name', $user);
+                //->setMaxResults(1);
         }
 
-        $weight = $queryBuilder[0];
+//        $weight = $queryBuilder[0];
 
-        return $weight;
+        return $queryBuilder;
     }
 
     /**

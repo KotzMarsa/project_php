@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.diary_entry_list'|trans }}</h1>
-    <div class = "float-right">
-        <a href="{{ url('diary_entry_new') }}" class="btn btn-primary" role="button" title="{{ 'action.diary_entry_new'|trans }}">
+    <h1 class="text-center">{{ 'title.diary_entry_list'|trans }}</h1>
+    <div class = "text-center">
+        <a href="{{ url('diary_entry_new') }}" class="btn btn-secondary text-center" role="button" title="{{ 'action.diary_entry_new'|trans }}">
         {{ 'action.diary_entry_new'|trans }}
     </a>
     </div>

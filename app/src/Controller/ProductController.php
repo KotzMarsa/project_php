@@ -9,6 +9,7 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,11 +39,19 @@ class ProductController extends AbstractController
      */
     public function index(Request $request, ProductRepository $repository, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $repository->queryAll(),
-            $request->query->getInt('page', 1),
-            Product::NUMBER_OF_ITEMS
-        );
+        if ($this->isGranted('ROLE_ADMIN')){
+            $pagination = $paginator->paginate(
+                $repository->queryAll(),
+                $request->query->getInt('page', 1),
+                Product::NUMBER_OF_ITEMS
+            );
+        } else {
+            $pagination = $paginator->paginate(
+                $repository->queryByUser($this->getUser()),
+                $request->query->getInt('page', 1),
+                Product::NUMBER_OF_ITEMS
+            );
+        }
 
         return $this->render(
             'product/index.html.twig',
@@ -66,11 +75,20 @@ class ProductController extends AbstractController
     public function view(Request $request, ProductRepository $repository, PaginatorInterface $paginator): Response
     {
         $categoryId = $request->get('id');
-        $pagination = $paginator->paginate(
-            $repository->queryByCategory($categoryId),
-            $request->query->getInt('page', 1),
-            Product::NUMBER_OF_ITEMS
-        );
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $pagination = $paginator->paginate(
+                $repository->queryByCategory($categoryId),
+                $request->query->getInt('page', 1),
+                Product::NUMBER_OF_ITEMS
+            );
+        }
+        else{
+            $pagination = $paginator->paginate(
+                $repository->queryByCategoryAndUser($categoryId, $this->getUser()),
+                $request->query->getInt('page', 1),
+                Product::NUMBER_OF_ITEMS
+            );
+        }
 
         return $this->render(
             'product/view.html.twig',
@@ -134,6 +152,8 @@ class ProductController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="product_delete",
      * )
+     *
+     * @IsGranted("ROLE_ADMIN",)
      */
     public function delete(Request $request, Product $product, ProductRepository $repository): Response
     {
@@ -178,6 +198,7 @@ class ProductController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="product_accept",
      * )
+     * @IsGranted("ROLE_ADMIN",)
      */
     public function accept(Request $request, Product $product, ProductRepository $repository): Response
     {

@@ -5,22 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.user'|trans }}</h1>
-    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-        <div class="card-header">{{ app.user.name }}</div>
-        <div class="card-body">
-            <h4 class="card-title">{{ 'title.user_data'|trans }}</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <p>next</p>
-        </div>
-    </div>
-    <div class="options">
+    <h3 class = "text-center">{{ 'title.user'|trans }}</h3>
+    <h1 class = "text-center">{{ app.user.name }}</h1>
+
+    <div class="options text-center">
         <a href="{{ url('user_name', {id: user.id}) }}" class="btn btn-primary" role="button" title="{{ 'action.changeName'|trans }}">
             {{ 'action.changeName'|trans }}
         </a>
     </div>
     <br>
-    <div class="options">
+    <div class="options text-center">
         <a href="{{ url('user_password', {id: user.id}) }}" class="btn btn-primary" role="button" title="{{ 'action.changePassword'|trans }}">
             {{ 'action.changePassword'|trans }}
         </a>
