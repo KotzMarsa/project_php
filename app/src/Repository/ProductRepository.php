@@ -89,11 +89,12 @@ class ProductRepository extends ServiceEntityRepository
     public function queryByCategoryAndUser(int $categoryId, User $user = null): QueryBuilder
     {
         $queryBuilder = $this->queryAll();
-        $queryBuilder->andWhere('p.category = :category')
-            ->setParameter('category', $categoryId)
+        $queryBuilder
             ->andWhere('p.user = :name')
             ->setParameter('name', $user)
-            ->orWhere('p.isAccepted = 1');
+            ->orWhere('p.isAccepted = 1')
+            ->andWhere('p.category = :category')
+            ->setParameter('category', $categoryId);
 
         return $queryBuilder;
     }

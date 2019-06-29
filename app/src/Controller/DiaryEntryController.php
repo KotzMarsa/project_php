@@ -69,29 +69,24 @@ class DiaryEntryController extends AbstractController
      * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @Route(
-     *     "/{date}",
+     *     "/{sub}/view",
+     *     methods={"GET"},
      *     name="diary_entry_view",
+     *     requirements={"sub": "[1-9]\d*"},
      * )
      * @IsGranted("ROLE_USER",)
      */
-    public function view(Request $request, DiaryEntryRepository $repository, PaginatorInterface $paginator): Response
+    public function view(Request $request, DiaryEntryRepository $repository, PaginatorInterface $paginator, int $sub): Response
     {
-        $entry = new DiaryEntry();
-        $entry->setDate(new \DateTime());
-        $form = $this->createForm(SearchDateType::class, $entry);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $repository->save($entry);
-
-            $this->addFlash('success', 'message.created_successfully');
-
-            return $this->redirectToRoute('diary_entry_index');
-        }
+        $pagination = $paginator->paginate(
+            $repository->queryByPastDate($this->getUser(), $sub),
+            $request->query->getInt('page', 1),
+            DiaryEntry::NUMBER_OF_ITEMS
+        );
 
         return $this->render(
             'diary_entry/view.html.twig',
-            ['form' => $form->createView()]
+            ['pagination' => $pagination]
         );
     }
 

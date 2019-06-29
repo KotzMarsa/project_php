@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\UserData;
 use App\Form\UserDataType;
 use App\Repository\UserDataRepository;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\Histogram;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,9 +23,9 @@ class UserDataController extends AbstractController
     /**
      * Index action.
      *
-     * @param Request $request    HTTP request
-     * @param \App\Repository\UserDataRepository        $repository Repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
+     * @param Request                                 $request    HTTP request
+     * @param \App\Repository\UserDataRepository      $repository Repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator  Paginator
      *
      * @return Response HTTP response
      *
@@ -39,18 +41,39 @@ class UserDataController extends AbstractController
             $request->query->getInt('page', 1),
             UserData::NUMBER_OF_ITEMS
         );
+        $pieChart = new PieChart();
+        $pieChart->getData()->setArrayToDataTable($repository->lastData());
+
+        $pieChart->getOptions()->setPieSliceText('label');
+        $pieChart->getOptions()->setTitle('Swiss Language Use (100 degree rotation)');
+        $pieChart->getOptions()->setPieStartAngle(100);
+        $pieChart->getOptions()->setHeight(500);
+        $pieChart->getOptions()->setWidth(900);
+        $pieChart->getOptions()->getLegend()->setPosition('none');
+
+        $histogram = new Histogram();
+        $histogram->getData()->setArrayToDataTable($repository->lastData());
+        $histogram->getOptions()->setTitle('Historia');
+        $histogram->getOptions()->setWidth(900);
+        $histogram->getOptions()->setHeight(500);
+        $histogram->getOptions()->getLegend()->setPosition('none');
+        $histogram->getOptions()->setColors(['#e7711c']);
+        $histogram->getOptions()->getHistogram()->setLastBucketPercentile(10);
+        $histogram->getOptions()->getHistogram()->setBucketSize(10000000);
 
         return $this->render(
             'user_data/index.html.twig',
-            ['pagination' => $pagination]
+            ['pagination' => $pagination,
+                'histogram' => $histogram,
+                'piechart' => $pieChart,]
         );
     }
 
     /**
      * New action.
      *
-     * @param Request $request    HTTP request
-     * @param \App\Repository\UserDataRepository        $repository UserData repository
+     * @param Request                            $request    HTTP request
+     * @param \App\Repository\UserDataRepository $repository UserData repository
      *
      * @return Response HTTP response
      *
@@ -66,7 +89,7 @@ class UserDataController extends AbstractController
     public function new(Request $request, UserDataRepository $repository): Response
     {
         $userData = new UserData();
-        $form = $this->createForm(UserDataType::class, $userData);
+        $form = $request->createForm(UserDataType::class, $userData);
         $form->handleRequest($request);
 
         $userData->setUser($this->getUser());
@@ -86,6 +109,35 @@ class UserDataController extends AbstractController
                 'user' => $userData, ]
         );
     }
+
+//    /**
+//     * @param UserDataRepository $repository
+//     * @return Response
+//     */
+//    public function indexAction(UserDataRepository $repository)
+//    {
+//        $pieChart = new PieChart();
+//        $pieChart->getData()->setArrayToDataTable($repository->lastData());
+//
+//        $pieChart->getOptions()->setPieSliceText('label');
+//        $pieChart->getOptions()->setTitle('Swiss Language Use (100 degree rotation)');
+//        $pieChart->getOptions()->setPieStartAngle(100);
+//        $pieChart->getOptions()->setHeight(500);
+//        $pieChart->getOptions()->setWidth(900);
+//        $pieChart->getOptions()->getLegend()->setPosition('none');
+//
+//        $histogram = new Histogram();
+//        $histogram->getData()->setArrayToDataTable($repository->lastData());
+//        $histogram->getOptions()->setTitle('Country Populations');
+//        $histogram->getOptions()->setWidth(900);
+//        $histogram->getOptions()->setHeight(500);
+//        $histogram->getOptions()->getLegend()->setPosition('none');
+//        $histogram->getOptions()->setColors(['#e7711c']);
+//        $histogram->getOptions()->getHistogram()->setLastBucketPercentile(10);
+//        $histogram->getOptions()->getHistogram()->setBucketSize(10000000);
+//
+//        return $this->render('user_data/index.html.twig', ['piechart' => $pieChart, 'histogram' => $histogram]);
+//    }
 
 //    /**
 //     * Actual weight.

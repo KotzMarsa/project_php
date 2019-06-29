@@ -32,7 +32,7 @@ class SearchDateType extends AbstractType
     {
         $builder->add(
             'searchDate',
-            SearchDateType::class,
+            DateType::class,
             [
                 'class' => Category::class,
 
@@ -41,6 +41,15 @@ class SearchDateType extends AbstractType
                 'required' => true,
             ]
         );
+        $builder->add(
+        'releaseDate',
+        DateType::class,
+        [
+            'label' => 'label.release_date',
+            'required' => true,
+            'years' => range(1950, 2050),
+        ]
+    );
 
     }
 

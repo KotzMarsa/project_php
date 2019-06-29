@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use App\Entity\UserData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -68,7 +69,7 @@ class UserDataRepository extends ServiceEntityRepository
                 ->orderBy('ud.date', 'DESC')
                 ->andWhere('ud.user = :name')
                     ->setParameter('name', $user);
-                //->setMaxResults(1);
+            //->setMaxResults(1);
         }
 
 //        $weight = $queryBuilder[0];
@@ -100,6 +101,28 @@ class UserDataRepository extends ServiceEntityRepository
     {
         $this->_em->persist($userData);
         $this->_em->flush($userData);
+    }
+
+    /**
+     * Query datas by user.
+     *
+     * @param \App\Entity\User|null $user User entity
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function lastData(User $user = null): array
+    {
+        $queryBuilder = $this->queryAll();
+
+        if (!is_null($user)) {
+            $queryBuilder->andWhere('ud.user = :name')
+                ->setParameter('name', $user)
+            ->groupBy('DATE(ud.date)');
+        }
+
+        $queryBuilder->select('DATE(ud.date)', 'ud.weight');
+
+        return $queryBuilder->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
     // /**

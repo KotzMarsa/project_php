@@ -82,7 +82,7 @@
 
             {% endfor %}
             </tbody>
-            <tr class="sumup">
+            <tr class="table-primary">
                 <td>
                     {{ 'razem' }}
                 </td>
@@ -133,5 +133,12 @@
             {{ 'message.empty_list'|trans }}
         </p>
     {% endif %}
+    {% set sub = 0 %}
+
+    <div class = "text-center">
+        <a href="{{ url('diary_entry_view', {sub: sub+1}) }}" class="btn btn-secondary text-center" role="button" title="{{ 'action.diary_entry_prev'|trans }}">
+            {{ 'action.diary_entry_prev'|trans }}
+        </a>
+    </div>
 
 {% endblock %}

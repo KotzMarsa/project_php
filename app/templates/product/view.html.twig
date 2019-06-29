@@ -21,7 +21,9 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.carbohydrate'|trans, 'p.carbohydrate') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.protein'|trans, 'p.protein') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.fat'|trans, 'p.fat') }}</th>
-                <th>{{ 'label.delete'|trans }}</th>
+    {% if  is_granted('ROLE_ADMIN') == true %}
+        <th>{{ 'label.delete'|trans }}</th>
+        {% endif %}
 
             </tr>
             </thead>
@@ -34,11 +36,13 @@
                     <td>{{ product.carbohydrate }}</td>
                     <td>{{ product.protein }}</td>
                     <td>{{ product.fat }}</td>
+                    {% if  is_granted('ROLE_ADMIN') == true %}
                     <td>
                         <a href="{{ url('product_delete', {id: product.id}) }}" title="{{ 'action.delete'|trans }}">
                             {{ 'action.delete'|trans }}
                         </a>
                     </td>
+                    {% endif %}
                     {#                    <td>#}
                     {#                        <a href="{{ url( 'product_view', {id: product.id}) }}" title="{{ 'action.view'|trans }}">#}
                     {#                            {{ 'action.view'|trans }}#}
@@ -58,5 +62,8 @@
             {{ 'message.empty_list'|trans }}
         </p>
     {% endif %}
+    <a href="{{ url('product_index') }}" class="btn btn-link">
+        {{ 'action.back_to_list'|trans }}
+    </a>
 
 {% endblock %}

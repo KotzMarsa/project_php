@@ -259,6 +259,10 @@
                 <source>action.user_data_new</source>
                 <target>Dodaj nowe</target>
             </trans-unit>
+            <trans-unit id="action.diary_entry_prev">
+                <source>action.diary_entry_prev</source>
+                <target>Poprzedni dzień</target>
+            </trans-unit>
 
             <!-- Messages -->
             <trans-unit id="message.created_successfully">

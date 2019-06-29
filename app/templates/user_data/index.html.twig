@@ -21,7 +21,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label.userId'|trans, 'ud.user') }}</th>
+{#                <th>{{ knp_pagination_sortable(pagination, 'label.userId'|trans, 'ud.user') }}</th>#}
                 <th>{{ knp_pagination_sortable(pagination, 'label.date'|trans, 'ud.date') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.calorieGoal'|trans, 'ud.calorie_goal') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.weight'|trans, 'ud.weight') }}</th>
@@ -32,7 +32,7 @@
             <tbody>
             {% for user_data in pagination %}
                 <tr>
-                    <td>{{ user_data.user.name }}</td>
+{#                    <td>{{ user_data.user.name }}</td>#}
                     <td>{{ user_data.date|localizeddate }}</td>
                     <td>{{ user_data.calorieGoal }}</td>
                     <td>{{ user_data.weight }}</td>
@@ -51,5 +51,8 @@
             {{ 'message.empty_list'|trans }}
         </p>
     {% endif %}
-
+    <div id="div_piechart">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        {{ gc_draw([piechart], ['div_piechart']) }}    </script>
 {% endblock %}
