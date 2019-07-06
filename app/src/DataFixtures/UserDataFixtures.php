@@ -1,21 +1,23 @@
 <?php
-
+/**
+ * UserData fixtures.
+ */
 
 namespace App\DataFixtures;
 
 use App\Entity\UserData;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+
 /**
- * Class UserDataFixtures
- * @package App\DataFixtures
+ * Class UserDataFixtures.
  */
 class UserDataFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load data.
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager Object manager
+     * @param ObjectManager $manager Object manager
      */
     public function loadData(ObjectManager $manager): void
     {

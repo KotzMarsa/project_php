@@ -1,4 +1,7 @@
 <?php
+/**
+ * DiaryEntry fixtures.
+ */
 
 namespace App\DataFixtures;
 
@@ -6,12 +9,15 @@ use App\Entity\DiaryEntry;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
+/**
+ * Class DiaryEntryFixtures.
+ */
 class DiaryEntryFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load data.
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager Object manager
+     * @param ObjectManager $manager Object manager
      */
     public function loadData(ObjectManager $manager): void
     {

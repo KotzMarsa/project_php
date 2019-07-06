@@ -202,7 +202,7 @@
             </trans-unit>
             <trans-unit id="title.user_password">
                 <source>title.user_password</source>
-                <target>Etry new password</target>
+                <target>Entry new password</target>
             </trans-unit>
             <trans-unit id="title.diary_entry_new">
                 <source>title.diary_entry_new</source>
@@ -227,6 +227,14 @@
             <trans-unit id="title.home">
                 <source>title.home</source>
                 <target>Welcome!</target>
+            </trans-unit>
+            <trans-unit id="title.product_delete">
+                <source>title.product_delete</source>
+                <target>Delete product</target>
+            </trans-unit>
+            <trans-unit id="title.product_accept">
+                <source>title.product_accept</source>
+                <target>Accept product</target>
             </trans-unit>
 
             <!-- Actions -->

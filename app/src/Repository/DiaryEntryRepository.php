@@ -1,10 +1,15 @@
 <?php
+/**
+ * DiaryEntry repository.
+ */
 
 namespace App\Repository;
 
 use App\Entity\DiaryEntry;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -16,14 +21,16 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class DiaryEntryRepository extends ServiceEntityRepository
 {
+    /**
+     * DiaryEntryRepository constructor.
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, DiaryEntry::class);
     }
 
     /**
-     * @param \App\Entity\User|null $user User entity
-     *
      * @return QueryBuilder
      */
     public function queryAll(): QueryBuilder
@@ -31,21 +38,16 @@ class DiaryEntryRepository extends ServiceEntityRepository
         return $this->getOrCreateQueryBuilder()
                 ->join('de.product', 'p')
                 ->join('de.meal', 'm')
-                //->join('de.product', 'p')
-                //->join('p.product_name', 'p')
-                //->andWhere('YEAR(t.createdAt) = YEAR(NOW()) AND MONTH(t.createdAt) = MONTH(NOW()) AND DAY(t.createdAt) = (DAY(NOW())+1)')
-                //->andWhere("DATE(de.date) >= DATE_SUB(CURRENT_DATE(), 1, 'day')")
                 ->andWhere('DATE(de.date) = CURRENT_DATE()')
-                //->groupBy('de.meal')
                 ->orderBy('m.id');
     }
 
     /**
-     * Query datas by user.
+     * Query data by user.
      *
-     * @param \App\Entity\User|null $user User entity
+     * @param User|null $user User entity
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryByUser(User $user = null): QueryBuilder
     {
@@ -59,40 +61,14 @@ class DiaryEntryRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
-//    /**
-//     * Query datas by date.
-//     *
-//     * @param \App\Entity\User|null $user User entity
-//     *
-//     * @return \Doctrine\ORM\QueryBuilder Query builder
-//     */
-//    public function queryByDate(User $user = null, $date): QueryBuilder
-//    {
-//        $queryBuilder = $this->getOrCreateQueryBuilder()
-//            ->join('de.product', 'p')
-//            ->join('de.meal', 'm')
-//            //->join('de.product', 'p')
-//            //->join('p.product_name', 'p')
-//            //->andWhere('YEAR(t.createdAt) = YEAR(NOW()) AND MONTH(t.createdAt) = MONTH(NOW()) AND DAY(t.createdAt) = (DAY(NOW())+1)')
-//            //->andWhere("DATE(de.date) >= DATE_SUB(CURRENT_DATE(), 1, 'day')")
-//            ->andWhere('DATE(de.date) = DATE($date)')
-//            //->groupBy('de.meal')
-//            ->orderBy('m.id');
-//
-//        if (!is_null($user)) {
-//            $queryBuilder->andWhere('de.user = :name')
-//                ->setParameter('name', $user);
-//        }
-//
-//        return $queryBuilder;
-//    }
-
     /**
-     * Query datas by past date.
+     * Query data by past date.
      *
-     * @param \App\Entity\User|null $user User entity
+     * @param User|null $user User entity
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @param int       $sub
+     *
+     * @return QueryBuilder Query builder
      */
     public function queryByPastDate(User $user = null, int $sub): QueryBuilder
     {
@@ -110,24 +86,12 @@ class DiaryEntryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?: $this->createQueryBuilder('de');
-    }
-
-    /**
      * Save record.
      *
-     * @param \App\Entity\DiaryEntry $diaryEntry DiaryEntry entity
+     * @param DiaryEntry $diaryEntry DiaryEntry entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(DiaryEntry $diaryEntry): void
     {
@@ -138,10 +102,10 @@ class DiaryEntryRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\DiaryEntry $diaryEntry DiaryEntry entity
+     * @param DiaryEntry $diaryEntry DiaryEntry entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(DiaryEntry $diaryEntry): void
     {
@@ -149,32 +113,15 @@ class DiaryEntryRepository extends ServiceEntityRepository
         $this->_em->flush($diaryEntry);
     }
 
-    // /**
-    //  * @return DiaryEntry[] Returns an array of DiaryEntry objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $queryBuilder ?: $this->createQueryBuilder('de');
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?DiaryEntry
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -1,13 +1,12 @@
 <?php
-
+/**
+ * Category entity.
+ */
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
@@ -32,6 +31,9 @@ class Category
      */
     private $products;
 
+    /**
+     * Category constructor.
+     */
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -55,6 +57,7 @@ class Category
 
     /**
      * @param string $name
+     *
      * @return Category
      */
     public function setName(string $name): self
@@ -72,6 +75,11 @@ class Category
         return $this->products;
     }
 
+    /**
+     * @param Product $product
+     *
+     * @return Category
+     */
     public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
@@ -82,6 +90,11 @@ class Category
         return $this;
     }
 
+    /**
+     * @param Product $product
+     *
+     * @return Category
+     */
     public function removeProduct(Product $product): self
     {
         if ($this->products->contains($product)) {

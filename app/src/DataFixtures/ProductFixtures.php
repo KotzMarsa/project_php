@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Product fixtures.
+ */
 namespace App\DataFixtures;
 
 use App\Entity\Product;
@@ -14,7 +16,7 @@ class ProductFixtures extends AbstractBaseFixtures implements DependentFixtureIn
     /**
      * Load.
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager
      */
     public function loadData(ObjectManager $manager): void
     {

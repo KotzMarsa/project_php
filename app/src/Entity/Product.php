@@ -1,4 +1,7 @@
 <?php
+/**
+ * Product entity.
+ */
 
 namespace App\Entity;
 
@@ -16,7 +19,7 @@ class Product
     /**
      * Use constants to define configuration options that rarely change instead
      * of specifying them in app/config/config.yml.
-     * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
+     * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options.
      *
      * @constant int NUMBER_OF_ITEMS
      */
@@ -46,7 +49,6 @@ class Product
      *     min="1",
      *     max="100",
      *     )
-     *
      */
     private $productName;
 
@@ -140,6 +142,9 @@ class Product
      */
     private $user;
 
+    /**
+     * Product constructor.
+     */
     public function __construct()
     {
         $this->diaryEntries = new ArrayCollection();
@@ -307,6 +312,11 @@ class Product
         return $this->diaryEntries;
     }
 
+    /**
+     * @param DiaryEntry $diaryEntry
+     *
+     * @return Product
+     */
     public function addDiaryEntry(DiaryEntry $diaryEntry): self
     {
         if (!$this->diaryEntries->contains($diaryEntry)) {
@@ -317,6 +327,11 @@ class Product
         return $this;
     }
 
+    /**
+     * @param DiaryEntry $diaryEntry
+     *
+     * @return Product
+     */
     public function removeDiaryEntry(DiaryEntry $diaryEntry): self
     {
         if ($this->diaryEntries->contains($diaryEntry)) {
@@ -330,11 +345,19 @@ class Product
         return $this;
     }
 
+    /**
+     * @return Category|null
+     */
     public function getCategory(): ?Category
     {
         return $this->category;
     }
 
+    /**
+     * @param Category|null $category
+     *
+     * @return Product
+     */
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
@@ -342,11 +365,19 @@ class Product
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     *
+     * @return Product
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;

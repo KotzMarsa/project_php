@@ -8,6 +8,8 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,17 +22,19 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ProductController.
  *
  * @Route("/product")
+ *
+ * @IsGranted("ROLE_USER")
  */
 class ProductController extends AbstractController
 {
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Repository\ProductRepository         $repository Repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
+     * @param Request            $request    HTTP request
+     * @param ProductRepository  $repository Repository
+     * @param PaginatorInterface $paginator  Paginator
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/",
@@ -39,7 +43,7 @@ class ProductController extends AbstractController
      */
     public function index(Request $request, ProductRepository $repository, PaginatorInterface $paginator): Response
     {
-        if ($this->isGranted('ROLE_ADMIN')){
+        if ($this->isGranted('ROLE_ADMIN')) {
             $pagination = $paginator->paginate(
                 $repository->queryAll(),
                 $request->query->getInt('page', 1),
@@ -62,9 +66,11 @@ class ProductController extends AbstractController
     /**
      * View action.
      *
-     * @param \App\Entity\Product $Product Product entity
+     * @param Request            $request
+     * @param ProductRepository  $repository
+     * @param PaginatorInterface $paginator
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/{id}",
@@ -81,8 +87,7 @@ class ProductController extends AbstractController
                 $request->query->getInt('page', 1),
                 Product::NUMBER_OF_ITEMS
             );
-        }
-        else{
+        } else {
             $pagination = $paginator->paginate(
                 $repository->queryByCategoryAndUser($categoryId, $this->getUser()),
                 $request->query->getInt('page', 1),
@@ -99,13 +104,13 @@ class ProductController extends AbstractController
     /**
      * New action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Repository\ProductRepository         $repository Product repository
+     * @param Request           $request    HTTP request
+     * @param ProductRepository $repository Product repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/new",
@@ -137,14 +142,14 @@ class ProductController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Entity\Product                       $product    Product entity
-     * @param \App\Repository\ProductRepository         $repository Product repository
+     * @param Request           $request    HTTP request
+     * @param Product           $product    Product entity
+     * @param ProductRepository $repository Product repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/delete",
@@ -183,14 +188,14 @@ class ProductController extends AbstractController
     /**
      * Accept action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Entity\Product                       $product    Product entity
-     * @param \App\Repository\ProductRepository         $repository Product repository
+     * @param Request           $request    HTTP request
+     * @param Product           $product    Product entity
+     * @param ProductRepository $repository Product repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/edit",

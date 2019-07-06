@@ -1,4 +1,7 @@
 <?php
+/**
+ * User entity.
+ */
 
 namespace App\Entity;
 
@@ -7,7 +10,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -79,7 +81,6 @@ class User implements UserInterface
      *     min="3",
      *     max="255",
      * )
-     *
      */
     private $password;
 
@@ -105,6 +106,9 @@ class User implements UserInterface
      */
     private $products;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->userData = new ArrayCollection();
@@ -112,16 +116,27 @@ class User implements UserInterface
         $this->products = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return User
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -129,11 +144,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPassword(): ?string
     {
         return $this->password;
     }
 
+    /**
+     * @param string $password
+     *
+     * @return User
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -141,6 +164,9 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return array|null
+     */
     public function getRoles(): ?array
     {
         $roles = $this->roles;
@@ -150,6 +176,11 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     *
+     * @return User
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -194,6 +225,11 @@ class User implements UserInterface
         return $this->userData;
     }
 
+    /**
+     * @param UserData $userData
+     *
+     * @return User
+     */
     public function addUserData(UserData $userData): self
     {
         if (!$this->userData->contains($userData)) {
@@ -204,6 +240,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param UserData $userData
+     *
+     * @return User
+     */
     public function removeUserData(UserData $userData): self
     {
         if ($this->userData->contains($userData)) {
@@ -225,6 +266,11 @@ class User implements UserInterface
         return $this->diaryEntries;
     }
 
+    /**
+     * @param DiaryEntry $diaryEntry
+     *
+     * @return User
+     */
     public function addDiaryEntry(DiaryEntry $diaryEntry): self
     {
         if (!$this->diaryEntries->contains($diaryEntry)) {
@@ -235,6 +281,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param DiaryEntry $diaryEntry
+     *
+     * @return User
+     */
     public function removeDiaryEntry(DiaryEntry $diaryEntry): self
     {
         if ($this->diaryEntries->contains($diaryEntry)) {
@@ -256,6 +307,11 @@ class User implements UserInterface
         return $this->products;
     }
 
+    /**
+     * @param Product $product
+     *
+     * @return User
+     */
     public function addProduct(Product $product): self
     {
         if (!$this->products->contains($product)) {
@@ -266,6 +322,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Product $product
+     *
+     * @return User
+     */
     public function removeProduct(Product $product): self
     {
         if ($this->products->contains($product)) {

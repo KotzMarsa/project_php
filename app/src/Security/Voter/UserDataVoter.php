@@ -2,12 +2,15 @@
 /**
  * UserData voter.
  */
+
 namespace App\Security\Voter;
+
 use App\Entity\UserData;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * Class UserDataVoter.
  */
@@ -19,6 +22,7 @@ class UserDataVoter extends Voter
      * @var Security
      */
     private $security;
+
     /**
      * OrderVoter constructor.
      *
@@ -28,6 +32,7 @@ class UserDataVoter extends Voter
     {
         $this->security = $security;
     }
+
     /**
      * Determines if the attribute and subject are supported by this voter.
      *
@@ -41,6 +46,7 @@ class UserDataVoter extends Voter
         return in_array($attribute, ['USER'])
             && $subject instanceof UserData;
     }
+
     /**
      * Perform a single access check operation on a given attribute, subject and token.
      * It is safe to assume that $attribute and $subject already passed the "supports()" method check.
@@ -69,6 +75,7 @@ class UserDataVoter extends Voter
                 return false;
                 break;
         }
+
         return false;
     }
 }

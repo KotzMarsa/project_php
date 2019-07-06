@@ -1,4 +1,7 @@
 <?php
+/**
+ * Meal entity.
+ */
 
 namespace App\Entity;
 
@@ -37,21 +40,35 @@ class Meal
      */
     private $diaryEntries;
 
+    /**
+     * Meal constructor.
+     */
     public function __construct()
     {
         $this->diaryEntries = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return Meal
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -67,6 +84,11 @@ class Meal
         return $this->diaryEntries;
     }
 
+    /**
+     * @param DiaryEntry $diaryEntry
+     *
+     * @return Meal
+     */
     public function addDiaryEntry(DiaryEntry $diaryEntry): self
     {
         if (!$this->diaryEntries->contains($diaryEntry)) {
@@ -77,6 +99,11 @@ class Meal
         return $this;
     }
 
+    /**
+     * @param DiaryEntry $diaryEntry
+     *
+     * @return Meal
+     */
     public function removeDiaryEntry(DiaryEntry $diaryEntry): self
     {
         if ($this->diaryEntries->contains($diaryEntry)) {

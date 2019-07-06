@@ -1,14 +1,18 @@
 <?php
+/**
+ * UserData controller.
+ */
 
 namespace App\Controller;
 
 use App\Entity\UserData;
-use App\Entity\User;
 use App\Form\UserDataType;
 use App\Repository\UserDataRepository;
+use DateTime;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class UserDataController.
  *
  * @Route("/user_data")
+ *
+ * @IsGranted("ROLE_USER")
  */
 class UserDataController extends AbstractController
 {
@@ -52,8 +58,8 @@ class UserDataController extends AbstractController
     /**
      * New action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param UserDataRepository                        $repository UserData repository
+     * @param Request            $request    HTTP request
+     * @param UserDataRepository $repository UserData repository
      *
      * @return Response HTTP response
      *
@@ -73,7 +79,7 @@ class UserDataController extends AbstractController
         $form->handleRequest($request);
 
         $userData->setUser($this->getUser());
-        $userData->setDate(new \DateTime());
+        $userData->setDate(new DateTime());
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($userData);
@@ -89,30 +95,4 @@ class UserDataController extends AbstractController
                 'user' => $userData, ]
         );
     }
-
-//    /**
-//     * Actual weight.
-//     *
-//     * @param Request $request    HTTP request
-//     * @param \App\Repository\UserDataRepository        $repository Repository
-//     * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
-//     * @return Response HTTP response
-//     * @Route(
-//     *     "/",
-//     *     name="user_data_index",
-//     * )
-//     */
-//    public function actualWeight(UserDataRepository $repository, Request $request, PaginatorInterface $paginator): Response
-//    {
-//        $pagination = $paginator->paginate(
-//            $repository->getActualWeight($this->getUser()),
-//            $request->query->getInt('page', 1),
-//            UserData::NUMBER_OF_ITEMS
-//        );
-//
-//        return $this->render(
-//            'user_data/index.html.twig',
-//            ['weight' => $pagination]
-//        );
-//    }
 }

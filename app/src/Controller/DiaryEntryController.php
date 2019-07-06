@@ -8,6 +8,9 @@ namespace App\Controller;
 use App\Entity\DiaryEntry;
 use App\Form\DiaryEntryType;
 use App\Repository\DiaryEntryRepository;
+use DateTime;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,18 +24,18 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/diary_entry")
  *
- * @IsGranted("ROLE_USER",)
+ * @IsGranted("ROLE_USER")
  */
 class DiaryEntryController extends AbstractController
 {
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Repository\DiaryEntryRepository      $repository DiaryEntry repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
+     * @param Request              $request    HTTP request
+     * @param DiaryEntryRepository $repository DiaryEntry repository
+     * @param PaginatorInterface   $paginator  Paginator
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @Route(
      *     "/",
@@ -57,14 +60,13 @@ class DiaryEntryController extends AbstractController
     /**
      * View action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Repository\DiaryEntryRepository      $repository DiaryEntry repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
+     * @param Request              $request    HTTP request
+     * @param DiaryEntryRepository $repository DiaryEntry repository
+     * @param PaginatorInterface   $paginator  Paginator
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param int                  $sub
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @return Response
      *
      * @Route(
      *     "/{sub}/view",
@@ -101,13 +103,13 @@ class DiaryEntryController extends AbstractController
     /**
      * New action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Repository\DiaryEntryRepository      $repository DiaryEntry repository
+     * @param Request              $request    HTTP request
+     * @param DiaryEntryRepository $repository DiaryEntry repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/new",
@@ -121,7 +123,7 @@ class DiaryEntryController extends AbstractController
         $entry = new DiaryEntry();
         $form = $this->createForm(DiaryEntryType::class, $entry);
         $form->handleRequest($request);
-        $entry->setDate(new \DateTime());
+        $entry->setDate(new DateTime());
         $entry->setUser($this->getUser());
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -141,14 +143,14 @@ class DiaryEntryController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Entity\DiaryEntry                    $diaryEntry DiaryEntry entity
-     * @param \App\Repository\DiaryEntryRepository      $repository DiaryEntry repository
+     * @param Request              $request    HTTP request
+     * @param DiaryEntry           $diaryEntry DiaryEntry entity
+     * @param DiaryEntryRepository $repository DiaryEntry repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/edit",
@@ -189,14 +191,14 @@ class DiaryEntryController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Entity\DiaryEntry                    $diaryEntry DiaryEntry entity
-     * @param \App\Repository\DiaryEntryRepository      $repository DiaryEntry repository
+     * @param Request              $request    HTTP request
+     * @param DiaryEntry           $diaryEntry DiaryEntry entity
+     * @param DiaryEntryRepository $repository DiaryEntry repository
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      *
      * @Route(
      *     "/{id}/delete",

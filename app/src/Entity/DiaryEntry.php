@@ -1,7 +1,11 @@
 <?php
+/**
+ * DiaryEntry entity.
+ */
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,8 +32,6 @@ class DiaryEntry
     private $id;
 
     /**
-     * @var \Date
-     *
      * @ORM\Column(type="datetime")
      */
     private $date;
@@ -73,19 +75,19 @@ class DiaryEntry
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
 
     /**
-     * @param \DateTimeInterface $date
+     * @param DateTimeInterface $date
      *
      * @return DiaryEntry
      */
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(DateTimeInterface $date): self
     {
         $this->date = $date;
 

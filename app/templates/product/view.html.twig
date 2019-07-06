@@ -22,6 +22,8 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.protein'|trans, 'p.protein') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.fat'|trans, 'p.fat') }}</th>
     {% if  is_granted('ROLE_ADMIN') == true %}
+        <th>{{ knp_pagination_sortable(pagination, 'label.is_accepted'|trans, 'p.isAccepted') }}</th>
+        <th>{{ 'label.accept'|trans }}</th>
         <th>{{ 'label.delete'|trans }}</th>
         {% endif %}
 
@@ -29,7 +31,11 @@
             </thead>
             <tbody>
             {% for product in pagination %}
-                <tr>
+                {% if product.isAccepted == 0 %}
+                    <tr class ="table-active">
+                {% else %}
+                    <tr>
+                {% endif %}
                     <td>{{ product.category.name }}</td>
                     <td>{{ product.productName }}</td>
                     <td>{{ product.calories }}</td>
@@ -37,17 +43,18 @@
                     <td>{{ product.protein }}</td>
                     <td>{{ product.fat }}</td>
                     {% if  is_granted('ROLE_ADMIN') == true %}
-                    <td>
-                        <a href="{{ url('product_delete', {id: product.id}) }}" title="{{ 'action.delete'|trans }}">
-                            {{ 'action.delete'|trans }}
-                        </a>
-                    </td>
+                        <td>{{ product.isAccepted }}</td>
+                        <td>
+                            <a href="{{ url('product_accept', {id: product.id}) }}" title="{{ 'action.accept'|trans }}">
+                                {{ 'action.accept'|trans }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url('product_delete', {id: product.id}) }}" title="{{ 'action.delete'|trans }}">
+                                {{ 'action.delete'|trans }}
+                            </a>
+                        </td>
                     {% endif %}
-                    {#                    <td>#}
-                    {#                        <a href="{{ url( 'product_view', {id: product.id}) }}" title="{{ 'action.view'|trans }}">#}
-                    {#                            {{ 'action.view'|trans }}#}
-                    {#                        </a>#}
-                    {#                    </td>#}
                 </tr>
             {% endfor %}
             </tbody>

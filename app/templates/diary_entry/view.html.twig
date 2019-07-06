@@ -30,22 +30,6 @@
         </a>
     </div>
     {% endif %}
-
-
-    {#    <h1>{{ 'title.diary_entry_view'|trans }}</h1>#}
-{#    {{ form_start(form, { method: 'PUT', action: url('diary_entry_view') }) }}#}
-{#    {{ form_widget(form) }}#}
-{#    <div class="form-group row float-sm-right">#}
-{#        <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-primary" />#}
-{#    </div>#}
-{#    <div class="form-group row float-sm-left">#}
-{#        <a href="{{ url('diary_entry_index') }}" class="btn btn-link">#}
-{#            {{ 'action.back_to_list'|trans }}#}
-{#        </a>#}
-{#    </div>#}
-{#    {{ form_end(form) }}#}
-
-
     {% if pagination is defined and pagination|length %}
         <table class="table table-striped">
             <thead>
@@ -66,7 +50,6 @@
             <tbody>
             {% for diary_entry in pagination %}
                 <tr>
-                    {#                    <td>{{ diary_entry.id }}</td>#}
                     <td>{{ diary_entry.date|localizeddate }}</td>
                     <td>{{ diary_entry.meal.name }}</td>
                     <td>{{ diary_entry.product.productName }}</td>

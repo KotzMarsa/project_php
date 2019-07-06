@@ -20,10 +20,9 @@
         <table class="table table-striped">
             <thead>
             <tr>
-{#                <th>{{ 'label.id'|trans }}</th>#}
                 <th>{{ knp_pagination_sortable(pagination,'label.date'|trans, 'de.date') }}</th>
                 <th>{{ knp_pagination_sortable(pagination,'label.meal'|trans, 'm.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination,'label.product'|trans, 'p.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination,'label.product'|trans, 'p.productName') }}</th>
                 <th>{{ knp_pagination_sortable(pagination,'label.serving'|trans, 'de.serving') }}</th>
                 <th>{{ knp_pagination_sortable(pagination,'label.calories'|trans, 'p.calories') }}</th>
                 <th>{{ knp_pagination_sortable(pagination,'label.carbohydrate'|trans, 'p.carbohydrate') }}</th>
@@ -32,17 +31,11 @@
                 <th>{{ 'label.edit'|trans }}</th>
                 <th>{{ 'label.delete'|trans }}</th>
 
-
-
-                {#                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'de.title') }}</th>#}
-{#                <th>{{ 'label.category'|trans }}</th>#}
-{#                <th>{{ 'label.actions'|trans }}</th>#}
             </tr>
             </thead>
             <tbody>
             {% for diary_entry in pagination %}
                 <tr>
-{#                    <td>{{ diary_entry.id }}</td>#}
                     <td>{{ diary_entry.date|localizeddate }}</td>
                     <td>{{ diary_entry.meal.name }}</td>
                     <td>{{ diary_entry.product.productName }}</td>
@@ -63,28 +56,17 @@
                         {% set fat = (diary_entry.product.fat * diary_entry.serving/100) %}
                         {{ fat }}
                     </td>
-
                     <td>
                         <a href="{{ url('diary_entry_edit', {id: diary_entry.id}) }}" title="{{ 'action.edit'|trans }}">
                             {{ 'action.edit'|trans }}
                         </a>
                     </td>
-
                     <td>
                         <a href="{{ url('diary_entry_delete', {id: diary_entry.id}) }}" title="{{ 'action.delete'|trans }}">
                             {{ 'action.delete'|trans }}
                         </a>
                     </td>
-                    {#                    <td>{{ diary_entry.title }}</td>#}
-{#                    <td>{{ diary_entry.category.title }}</td>#}
-{#                    <td>#}
-{#                        <a href="{{ url('diary_entry#}
-{#                        _view', {id: diary_entry.id}) }}" title="{{ 'action.view'|trans }}">#}
-{#                            {{ 'action.view'|trans }}#}
-{#                        </a>#}
-{#                    </td>#}
                 </tr>
-
             {% endfor %}
             </tbody>
             <tr class="table-primary">
@@ -132,13 +114,11 @@
             </tr>
         </table>
 
-
     {% else %}
         <br><br>
         <p class = "text-center">
             {{ 'message.empty_list'|trans }}
         </p>
     {% endif %}
-
 
 {% endblock %}

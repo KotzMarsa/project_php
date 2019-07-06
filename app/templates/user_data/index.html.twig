@@ -21,9 +21,8 @@
         <table class="table table-striped">
             <thead>
             <tr>
-{#                <th>{{ knp_pagination_sortable(pagination, 'label.userId'|trans, 'ud.user') }}</th>#}
                 <th>{{ knp_pagination_sortable(pagination, 'label.date'|trans, 'ud.date') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.calorieGoal'|trans, 'ud.calorie_goal') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.calorieGoal'|trans, 'ud.calorieGoal') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.weight'|trans, 'ud.weight') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.height'|trans, 'ud.height') }}</th>
 
@@ -32,7 +31,6 @@
             <tbody>
             {% for user_data in pagination %}
                 <tr>
-{#                    <td>{{ user_data.user.name }}</td>#}
                     <td>{{ user_data.date|localizeddate }}</td>
                     <td>{{ user_data.calorieGoal }}</td>
                     <td>{{ user_data.weight }}</td>

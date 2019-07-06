@@ -5,7 +5,6 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
 use App\Entity\DiaryEntry;
 use App\Entity\Product;
 use App\Entity\Meal;
@@ -16,7 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class DiaryEntryType
+ * Class DiaryEntryType.
  */
 class DiaryEntryType extends AbstractType
 {
@@ -46,19 +45,7 @@ class DiaryEntryType extends AbstractType
                 'required' => true,
             ]
         );
-//        $builder->add(
-//            'category',
-//            EntityType::class,
-//            [
-//                'class' => Category::class,
-//                'choice_label' => function ($category) {
-//                    return ($category->getName());
-//                },
-//                'label' => 'label.category',
-//                'placeholder' => 'label.none',
-//                'required' => true,
-//            ]
-//        );
+
         $builder->add(
             'product',
             EntityType::class,

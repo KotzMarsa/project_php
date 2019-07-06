@@ -22,21 +22,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 /**
- * Class TaskController.
+ * Class UserController.
  *
  * @Route("/user")
+ *
+ * @IsGranted("ROLE_USER")
  */
 class UserController extends AbstractController
 {
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param Request                                   $request    HTTP request
-     * @param User                                      $user
-     * @param UserRepository                            $repository User repository
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/",
@@ -128,7 +125,7 @@ class UserController extends AbstractController
      *     subject="user",
      * )
      */
-    public function changeName(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function changeName(Request $request, User $user, UserRepository $repository): Response
     {
         $form = $this->createForm(UserNameType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -153,11 +150,11 @@ class UserController extends AbstractController
     /**
      * List action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    HTTP request
-     * @param \App\Repository\ProductRepository         $repository Repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator  Paginator
+     * @param Request            $request    HTTP request
+     * @param UserRepository     $repository Repository
+     * @param PaginatorInterface $paginator  Paginator
      *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     * @return Response HTTP response
      *
      * @Route(
      *     "/list",
@@ -170,25 +167,18 @@ class UserController extends AbstractController
      */
     public function list(Request $request, UserRepository $repository, PaginatorInterface $paginator): Response
     {
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $pagination = $paginator->paginate(
-                $repository->queryAll(),
-                $request->query->getInt('page', 1),
-                Product::NUMBER_OF_ITEMS
-            );
-        } else {
-            $pagination = $paginator->paginate(
-                $repository->queryByUser($this->getUser()),
-                $request->query->getInt('page', 1),
-                Product::NUMBER_OF_ITEMS
-            );
-        }
+        $pagination = $paginator->paginate(
+            $repository->queryAll(),
+            $request->query->getInt('page', 1),
+            Product::NUMBER_OF_ITEMS
+        );
 
         return $this->render(
             'user/list.html.twig',
             ['pagination' => $pagination]
         );
     }
+
     /**
      * Grant admin action.
      *

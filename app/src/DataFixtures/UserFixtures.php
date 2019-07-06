@@ -17,14 +17,14 @@ class UserFixtures extends AbstractBaseFixtures
     /**
      * Password encoder.
      *
-     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
+     * @var UserPasswordEncoderInterface
      */
     private $passwordEncoder;
 
     /**
      * UserFixtures constructor.
      *
-     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder Password encoder
+     * @param UserPasswordEncoderInterface $passwordEncoder Password encoder
      */
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -34,7 +34,7 @@ class UserFixtures extends AbstractBaseFixtures
     /**
      * Load.
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager
      */
     public function loadData(ObjectManager $manager): void
     {
@@ -54,24 +54,11 @@ class UserFixtures extends AbstractBaseFixtures
             return $user;
         });
 
-//        $this->createMany(2, 'users', function ($i) {
-//            $user = new User();
-//            $names = ['user1', 'user2'];
-//            $user->setName($names[$i]);
-//            $user->setRoles(['ROLE_USER']);
-//            $user->setPassword($this->passwordEncoder->encodePassword(
-//                $user,
-//                'user1234'
-//            ));
-//
-//            return $user;
-//        });
-
         $this->createMany(3, 'admins', function ($i) {
             $user = new User();
             $names = ['admin1', 'admin2', 'admin3'];
             $user->setName($names[$i]);
-            $user->setRoles(['ROLE_USER','ROLE_ADMIN']);
+            $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
                 'admin1234'

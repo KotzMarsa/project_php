@@ -1,11 +1,15 @@
 <?php
+/**
+ * Product repository.
+ */
 
 namespace App\Repository;
 
-use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\QueryBuilder;
 
@@ -22,7 +26,7 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * ProductRepository constructor.
      *
-     * @param \Symfony\Bridge\Doctrine\RegistryInterface $registry Registry
+     * @param RegistryInterface $registry Registry
      */
     public function __construct(RegistryInterface $registry)
     {
@@ -32,7 +36,7 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
     {
@@ -47,7 +51,7 @@ class ProductRepository extends ServiceEntityRepository
      *
      * @param int $categoryId
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryByCategory(int $categoryId): QueryBuilder
     {
@@ -59,11 +63,11 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
-     * Query datas by user.
+     * Query data by user.
      *
-     * @param \App\Entity\User|null $user User entity
+     * @param User|null $user User entity
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryByUser(User $user = null): QueryBuilder
     {
@@ -80,11 +84,10 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * Query products by category and user.
      *
-     * @param int $categoryId
+     * @param int       $categoryId
+     * @param User|null $user       User entity
      *
-     * @param \App\Entity\User|null $user User entity
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryByCategoryAndUser(int $categoryId, User $user = null): QueryBuilder
     {
@@ -100,24 +103,12 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?: $this->createQueryBuilder('p');
-    }
-
-    /**
      * Save record.
      *
-     * @param \App\Entity\Product $product Product entity
+     * @param Product $product Product entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Product $product): void
     {
@@ -128,10 +119,10 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * Delete record.
      *
-     * @param \App\Entity\Product $product Product entity
+     * @param Product $product Product entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(Product $product): void
     {
@@ -139,32 +130,15 @@ class ProductRepository extends ServiceEntityRepository
         $this->_em->flush($product);
     }
 
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $queryBuilder ?: $this->createQueryBuilder('p');
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Product
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

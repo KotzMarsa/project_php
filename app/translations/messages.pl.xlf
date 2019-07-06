@@ -228,6 +228,14 @@
                 <source>title.home</source>
                 <target>Witaj na stronie!</target>
             </trans-unit>
+            <trans-unit id="title.product_delete">
+                <source>title.product_delete</source>
+                <target>Usuń produkt</target>
+            </trans-unit>
+            <trans-unit id="title.product_accept">
+                <source>title.product_accept</source>
+                <target>Zaakceptuj produkt</target>
+            </trans-unit>
 
             <!-- Actions -->
 

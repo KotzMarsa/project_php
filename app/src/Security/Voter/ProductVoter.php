@@ -8,19 +8,22 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class ProductVoter.
+ */
 class ProductVoter extends Voter
 {
     /**
      * Security helper.
      *
-     * @var \Symfony\Component\Security\Core\Security
+     * @var Security
      */
     private $security;
 
     /**
      * OrderVoter constructor.
      *
-     * @param \Symfony\Component\Security\Core\Security $security Security helper
+     * @param Security $security Security helper
      */
     public function __construct(Security $security)
     {

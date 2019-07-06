@@ -2,14 +2,17 @@
 /**
  * Registration type.
  */
+
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Component\Form\Extension\Core\Type\TextType;use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 /**
  * Class RegistrationType.
  */
@@ -39,16 +42,18 @@ class RegistrationType extends AbstractType
         );
 
         $builder->add(
-                'password',
-                RepeatedType::class, [
+            'password',
+            RepeatedType::class,
+            [
                     'type' => PasswordType::class,
                     'invalid_message' => 'Oba pola hasła muszą być takie same.',
                     'required' => true,
                     'first_options' => ['label' => 'label.password'],
                     'second_options' => ['label' => 'label.repeat_password'],
                 ]
-            );
+        );
     }
+
     /**
      * Configures the options for this type.
      *
@@ -58,6 +63,7 @@ class RegistrationType extends AbstractType
     {
         $resolver->setDefaults(['data_class' => User::class]);
     }
+
     /**
      * Returns the prefix of the template block name for this type.
      *

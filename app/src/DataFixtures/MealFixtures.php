@@ -7,6 +7,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Meal;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Generator;
 
 /**
  * Class MealFixtures.
@@ -16,21 +17,21 @@ class MealFixtures extends AbstractBaseFixtures
     /**
      * Faker.
      *
-     * @var \Faker\Generator
+     * @var Generator
      */
     protected $faker;
 
     /**
      * Object manager.
      *
-     * @var \Doctrine\Common\Persistence\ObjectManager
+     * @var ObjectManager
      */
     protected $manager;
 
     /**
      * Load data.
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager
      */
     public function loadData(ObjectManager $manager): void
     {

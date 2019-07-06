@@ -14,14 +14,10 @@
 
     {% if pagination is defined and pagination|length %}
 
-{#        <div class="navigation text-center">#}
-{#            {{ knp_pagination_render(pagination) }}#}
-{#        </div>#}
-
         <table class="table table-striped">
             <thead>
             <tr>
-    {% if  is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') %}
         <th>{{ knp_pagination_sortable(pagination, 'label.product.user'|trans, 'u.name') }}</th>
         {% endif %}
         <th>{{ knp_pagination_sortable(pagination, 'label.product.category_name'|trans, 'c.name') }}</th>
@@ -30,7 +26,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.carbohydrate'|trans, 'p.carbohydrate') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.protein'|trans, 'p.protein') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.fat'|trans, 'p.fat') }}</th>
-                {% if  is_granted('ROLE_ADMIN') == true %}
+                {% if is_granted('ROLE_ADMIN') == true %}
                 <th>{{ knp_pagination_sortable(pagination, 'label.is_accepted'|trans, 'p.isAccepted') }}</th>
                 <th>{{ 'label.accept'|trans }}</th>
                 <th>{{ 'label.delete'|trans }}</th>
@@ -58,7 +54,7 @@
                     <td>{{ product.protein }}</td>
                     <td>{{ product.fat }}</td>
 
-                    {% if  is_granted('ROLE_ADMIN') == true %}
+                    {% if is_granted('ROLE_ADMIN') == true %}
                         <td>{{ product.isAccepted }}</td>
                         <td>
                         <a href="{{ url('product_accept', {id: product.id}) }}" title="{{ 'action.accept'|trans }}">
@@ -70,11 +66,6 @@
                             {{ 'action.delete'|trans }}
                         </a>
                     </td>
-                    {#                    <td>#}
-{#                        <a href="{{ url( 'product_view', {id: product.id}) }}" title="{{ 'action.view'|trans }}">#}
-{#                            {{ 'action.view'|trans }}#}
-{#                        </a>#}
-{#                    </td>#}
                     {% endif %}
                 </tr>
             {% endfor %}

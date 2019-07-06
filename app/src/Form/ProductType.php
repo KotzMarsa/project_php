@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ProductType
+ * Class ProductType.
  */
 class ProductType extends AbstractType
 {
@@ -89,16 +89,6 @@ class ProductType extends AbstractType
                 'attr' => ['max_length' => 3],
             ]
         );
-//        $builder->add(
-//            'is_accepted',
-//            TextType::class,
-//            [
-//                'label' => 'label.is_accepted',
-//                'required' => false,
-//                'data' => '0',
-//                'label' => false,
-//            ]
-//        );
     }
 
     /**

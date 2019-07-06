@@ -1,10 +1,15 @@
 <?php
+/**
+ * UserData repository.
+ */
 
 namespace App\Repository;
 
 use App\Entity\User;
 use App\Entity\UserData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -17,6 +22,11 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class UserDataRepository extends ServiceEntityRepository
 {
+    /**
+     * UserDataRepository constructor.
+     *
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, UserData::class);
@@ -25,7 +35,7 @@ class UserDataRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
     {
@@ -35,11 +45,11 @@ class UserDataRepository extends ServiceEntityRepository
     }
 
     /**
-     * Query datas by user.
+     * Query data by user.
      *
-     * @param \App\Entity\User|null $user User entity
+     * @param User|null $user User entity
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryByUser(User $user = null): QueryBuilder
     {
@@ -56,9 +66,9 @@ class UserDataRepository extends ServiceEntityRepository
     /**
      * Get actual weight.
      *
-     * @param \App\Entity\User|null $user User entity
+     * @param User|null $user User entity
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function getActualWeight(User $user = null): QueryBuilder
     {
@@ -69,33 +79,18 @@ class UserDataRepository extends ServiceEntityRepository
                 ->orderBy('ud.date', 'DESC')
                 ->andWhere('ud.user = :name')
                     ->setParameter('name', $user);
-            //->setMaxResults(1);
         }
-
-//        $weight = $queryBuilder[0];
 
         return $queryBuilder;
     }
 
     /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?: $this->createQueryBuilder('ud');
-    }
-
-    /**
      * Save record.
      *
-     * @param \App\Entity\UserData $userData UserData entity
+     * @param UserData $userData UserData entity
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(UserData $userData): void
     {
@@ -104,11 +99,11 @@ class UserDataRepository extends ServiceEntityRepository
     }
 
     /**
-     * Query datas by user.
+     * Query data by user.
      *
-     * @param \App\Entity\User|null $user User entity
+     * @param User|null $user User entity
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return array Query builder
      */
     public function lastData(User $user = null): array
     {
@@ -125,32 +120,15 @@ class UserDataRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
-    // /**
-    //  * @return UserData[] Returns an array of UserData objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;->setMaxResults(1)
+        return $queryBuilder ?: $this->createQueryBuilder('ud');
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?UserData
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
