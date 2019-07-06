@@ -17,6 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserNameType extends AbstractType
 {
     /**
+     * Build form.
+     *
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
@@ -34,6 +36,8 @@ class UserNameType extends AbstractType
     }
 
     /**
+     * Configure options.
+     *
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)

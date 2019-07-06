@@ -14,6 +14,8 @@ use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
+ * Class DiaryEntryRepository.
+ *
  * @method DiaryEntry|null find($id, $lockMode = null, $lockVersion = null)
  * @method DiaryEntry|null findOneBy(array $criteria, array $orderBy = null)
  * @method DiaryEntry[]    findAll()
@@ -31,6 +33,8 @@ class DiaryEntryRepository extends ServiceEntityRepository
     }
 
     /**
+     * Query all.
+     *
      * @return QueryBuilder
      */
     public function queryAll(): QueryBuilder

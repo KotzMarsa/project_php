@@ -17,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 class UserPasswordType extends AbstractType
 {
     /**
+     * Build form.
+     *
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
@@ -42,6 +44,8 @@ class UserPasswordType extends AbstractType
         );
     }
     /**
+     * Configure options.
+     *
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)

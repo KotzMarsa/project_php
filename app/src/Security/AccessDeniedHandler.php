@@ -15,6 +15,8 @@ use Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface;
 class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
     /**
+     * Handle.
+     *
      * @param Request               $request
      * @param AccessDeniedException $accessDeniedException
      *

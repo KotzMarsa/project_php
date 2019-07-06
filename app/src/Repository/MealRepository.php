@@ -10,6 +10,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
+ * Class MealRepository.
+ *
  * @method Meal|null find($id, $lockMode = null, $lockVersion = null)
  * @method Meal|null findOneBy(array $criteria, array $orderBy = null)
  * @method Meal[]    findAll()
