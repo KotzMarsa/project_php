@@ -11,6 +11,11 @@
         {{ 'action.diary_entry_new'|trans }}
     </a>
     </div>
+    <div class = "float-left">
+        <a href="{{ url('diary_entry_view', {sub: app.request.get("sub")+1}) }}" class="btn btn-secondary text-center" role="button" title="{{ 'action.diary_entry_prev'|trans }}">
+            {{ 'action.diary_entry_prev'|trans }}
+        </a>
+    </div>
     {% if pagination is defined and pagination|length %}
         <table class="table table-striped">
             <thead>
@@ -129,16 +134,11 @@
 
 
     {% else %}
-        <p>
+        <br><br>
+        <p class = "text-center">
             {{ 'message.empty_list'|trans }}
         </p>
     {% endif %}
-    {% set sub = 0 %}
 
-    <div class = "text-center">
-        <a href="{{ url('diary_entry_view', {sub: sub+1}) }}" class="btn btn-secondary text-center" role="button" title="{{ 'action.diary_entry_prev'|trans }}">
-            {{ 'action.diary_entry_prev'|trans }}
-        </a>
-    </div>
 
 {% endblock %}

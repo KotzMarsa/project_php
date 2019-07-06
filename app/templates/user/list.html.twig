@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.user_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1 class = "text-center">{{ 'title.user_list'|trans }}</h1>
+    {% if  is_granted('ROLE_ADMIN') %}
+    {% if pagination is defined and pagination|length %}
+
+                <div class="navigation text-center">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.userId'|trans, 'u.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.user_name'|trans, 'u.name') }}</th>
+                <th>{{ 'label.role'|trans }}</th>
+                <th>{{ 'label.promote'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in pagination %}
+                <td>{{ user.id }}</td>
+                <td>{{ user.userName }}</td>
+                <td>
+                {% set roles = [] %}
+                {% for role in user.roles %}
+                    {% set roles = roles|merge([role]) %}
+                {% endfor %}
+                {{ roles|join(', ') }}
+                </td>
+                    <td>
+                        <a href="{{ url('user_promote', {id: user.id}) }}" title="{{ 'action.promote'|trans }}">
+                            {{ 'action.promote'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+    {% endif %}
+
+{% endblock %}

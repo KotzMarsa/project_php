@@ -38,7 +38,7 @@ class UserVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        return in_array($attribute, ['USER'])
+        return in_array($attribute, ['MANAGE'])
             && $subject instanceof User;
     }
     /**
@@ -60,7 +60,7 @@ class UserVoter extends Voter
         }
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case 'USER':
+            case 'MANAGE':
                 if ($subject === $user) {
                     return true;
                 }

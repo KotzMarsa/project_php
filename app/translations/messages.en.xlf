@@ -2,6 +2,9 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
+
+            <!-- Labels-->
+
             <trans-unit id="label.id">
                 <source>label.id</source>
                 <target>Id</target>
@@ -14,6 +17,311 @@
                 <source>label.tags</source>
                 <target>Tags</target>
             </trans-unit>
+            <trans-unit id="title.product_list">
+                <source>title.product_list</source>
+                <target>List of products</target>
+            </trans-unit>
+            <trans-unit id="label_previous">
+                <source>label_previous</source>
+                <target>Previous</target>
+            </trans-unit>
+            <trans-unit id="label_next">
+                <source>label_next</source>
+                <target>Next</target>
+            </trans-unit>
+            <trans-unit id="label.product_name">
+                <source>label.product_name</source>
+                <target>Product name</target>
+            </trans-unit>
+            <trans-unit id="label.calories">
+                <source>label.calories</source>
+                <target>Calories</target>
+            </trans-unit>
+            <trans-unit id="label.carbohydrate">
+                <source>label.carbohydrate</source>
+                <target>Carbohydrate</target>
+            </trans-unit>
+            <trans-unit id="label.protein">
+                <source>label.protein</source>
+                <target>Protein</target>
+            </trans-unit>
+            <trans-unit id="label.fat">
+                <source>label.fat</source>
+                <target>Fat</target>
+            </trans-unit>
+            <trans-unit id="label.date">
+                <source>label.date</source>
+                <target>Date</target>
+            </trans-unit>
+            <trans-unit id="label.meal">
+                <source>label.meal</source>
+                <target>Meal</target>
+            </trans-unit>
+            <trans-unit id="label.product">
+                <source>label.product</source>
+                <target>Product</target>
+            </trans-unit>
+            <trans-unit id="label.serving">
+                <source>label.serving</source>
+                <target>Serving</target>
+            </trans-unit>
+            <trans-unit id="label.edit">
+                <source>label.edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="label.delete">
+                <source>label.delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="label.diary_entries">
+                <source>label.diary_entries</source>
+                <target>Diary entries</target>
+            </trans-unit>
+            <trans-unit id="label.products">
+                <source>label.products</source>
+                <target>Products</target>
+            </trans-unit>
+            <trans-unit id="label.user_datas">
+                <source>label.user_datas</source>
+                <target>User data</target>
+            </trans-unit>
+            <trans-unit id="label.user_panel">
+                <source>label.user_panel</source>
+                <target>Edit profile</target>
+            </trans-unit>
+            <trans-unit id="label.none">
+                <source>label.none</source>
+                <target>None</target>
+            </trans-unit>
+            <trans-unit id="label.name">
+                <source>label.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="label.password">
+                <source>label.password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="label.repeat_password">
+                <source>label.repeat_password</source>
+                <target>Repeat password</target>
+            </trans-unit>
+            <trans-unit id="label.product.user">
+                <source>label.product.user</source>
+                <target>Author</target>
+            </trans-unit>
+            <trans-unit id="label.product.category_name">
+                <source>label.product.category_name</source>
+                <target>Category</target>
+            </trans-unit>
+            <trans-unit id="label.accept">
+                <source>label.accept</source>
+                <target>Accept</target>
+            </trans-unit>
+            <trans-unit id="label.is_accepted">
+                <source>label.is_accepted</source>
+                <target>Is accepted</target>
+            </trans-unit>
+            <trans-unit id="label.userId">
+                <source>label.userId</source>
+                <target>User ID</target>
+            </trans-unit>
+            <trans-unit id="label.calorieGoal">
+                <source>label.calorieGoal</source>
+                <target>Calorie goal</target>
+            </trans-unit>
+            <trans-unit id="label.weight">
+                <source>label.weight</source>
+                <target>Weight</target>
+            </trans-unit>
+            <trans-unit id="label.height">
+                <source>label.height</source>
+                <target>Height</target>
+            </trans-unit>
+            <trans-unit id="label.user_name">
+                <source>label.user_name</source>
+                <target>Username</target>
+            </trans-unit>
+            <trans-unit id="label.user_list">
+                <source>label.user_list</source>
+                <target>Users list</target>
+            </trans-unit>
+            <trans-unit id="label.role">
+                <source>label.role</source>
+                <target>Roles</target>
+            </trans-unit>
+            <trans-unit id="label.promote">
+                <source>label.promote</source>
+                <target>Change role</target>
+            </trans-unit>
+
+            <!-- Titles -->
+
+            <trans-unit id="title.diary_entry_list">
+                <source>title.diary_entry_list</source>
+                <target>Diary entries list</target>
+            </trans-unit>
+            <trans-unit id="title.product_new">
+                <source>title.product_new</source>
+                <target>Add new product</target>
+            </trans-unit>
+            <trans-unit id="title.user_data_list">
+                <source>title.user_data_list</source>
+                <target>History</target>
+            </trans-unit>
+            <trans-unit id="title.category_list">
+                <source>title.category_list</source>
+                <target>List of categories</target>
+            </trans-unit>
+            <trans-unit id="title.user">
+                <source>title.user</source>
+                <target>User</target>
+            </trans-unit>
+            <trans-unit id="title.login">
+                <source>title.login</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="title.register">
+                <source>title.register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="title.user_register">
+                <source>title.user_register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="title.user_data_new">
+                <source>title.user_data_new</source>
+                <target>Entry new data</target>
+            </trans-unit>
+            <trans-unit id="title.user_data">
+                <source>title.user_data</source>
+                <target>Your data</target>
+            </trans-unit>
+            <trans-unit id="title.user_name">
+                <source>title.user_name</source>
+                <target>Entry new username</target>
+            </trans-unit>
+            <trans-unit id="title.user_password">
+                <source>title.user_password</source>
+                <target>Etry new password</target>
+            </trans-unit>
+            <trans-unit id="title.diary_entry_new">
+                <source>title.diary_entry_new</source>
+                <target>New diary entry</target>
+            </trans-unit>
+            <trans-unit id="title.diary_entry_edit">
+                <source>title.diary_entry_edit</source>
+                <target>Edit diary entry</target>
+            </trans-unit>
+            <trans-unit id="title.diary_entry_delete">
+                <source>title.diary_entry_delete</source>
+                <target>Delete diary entry</target>
+            </trans-unit>
+            <trans-unit id="title.user_list">
+                <source>title.user_list</source>
+                <target>Users list</target>
+            </trans-unit>
+            <trans-unit id="title.user_promote">
+                <source>title.user_promote</source>
+                <target>Change role</target>
+            </trans-unit>
+
+            <!-- Actions -->
+
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Save</target>
+            </trans-unit>
+            <trans-unit id="action.back_to_list">
+                <source>action.back_to_list</source>
+                <target>Back to list</target>
+            </trans-unit>
+            <trans-unit id="action.edit">
+                <source>action.edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+                <source>action.logout</source>
+                <target>Log out</target>
+            </trans-unit>
+            <trans-unit id="action.changeName">
+                <source>action.changeName</source>
+                <target>Change name</target>
+            </trans-unit>
+            <trans-unit id="action.changePassword">
+                <source>action.changePassword</source>
+                <target>Change password</target>
+            </trans-unit>
+            <trans-unit id="action.diary_entry_new">
+                <source>action.diary_entry_new</source>
+                <target>Add diary entry</target>
+            </trans-unit>
+            <trans-unit id="action.product_new">
+                <source>action.product_new</source>
+                <target>Add product</target>
+            </trans-unit>
+            <trans-unit id="action.accept">
+                <source>action.accept</source>
+                <target>Accept</target>
+            </trans-unit>
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="action.user_data_new">
+                <source>action.user_data_new</source>
+                <target>Add new</target>
+            </trans-unit>
+            <trans-unit id="action.diary_entry_prev">
+                <source>action.diary_entry_prev</source>
+                <target>Previous day</target>
+            </trans-unit>
+            <trans-unit id="action.diary_entry_next">
+                <source>action.diary_entry_next</source>
+                <target>Next day</target>
+            </trans-unit>
+            <trans-unit id="action.promote">
+                <source>action.promote</source>
+                <target>Change</target>
+            </trans-unit>
+
+            <!-- Messages -->
+            <trans-unit id="message.created_successfully">
+                <source>message.created_successfully</source>
+                <target>Created successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.updated_successfully">
+                <source>message.updated_successfully</source>
+                <target>Updated successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Deleted successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.empty_list">
+                <source>message.empty_list</source>
+                <target>The list is empty.</target>
+            </trans-unit>
+            <trans-unit id="message.form_error">
+                <source>message.form_error</source>
+                <target>Form error.</target>
+            </trans-unit>
+            <trans-unit id="message.item_not_found">
+                <source>message.item_not_found</source>
+                <target>Item not found.</target>
+            </trans-unit>
+            <trans-unit id="message.registered_successfully">
+                <source>message.registered_successfully</source>
+                <target>Registered successfully!</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

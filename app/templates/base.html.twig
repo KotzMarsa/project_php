@@ -20,28 +20,27 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav mr-auto">
-            {% if is_granted('ROLE_ADMIN') == true %}
-
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('diary_entry_index') }}">{{ 'label.diary_entries'|trans }}</a>
-                </li>
-            {% endif %}
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('diary_entry_index') }}">{{ 'label.diary_entries'|trans }}</a>
+            </li>
             <li class="nav-item">
             <a class="nav-link" href="{{ url('product_index') }}">{{ 'label.products'|trans }}</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('user_data_index') }}">{{ 'label.user_datas'|trans }}</a>
+            </li>
             {% if is_granted('ROLE_ADMIN') == true %}
-
-            {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('user_data_index') }}">{{ 'label.user_datas'|trans }}</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('user_list') }}">{{ 'label.user_list'|trans }}</a>
+                </li>
             {% endif %}
             <li class="nav-item">
             <a class="nav-link" href="{{ url('user_index') }}">{{ 'label.user_panel'|trans }}</a>
             </li>
         </ul>
+            {% endif %}
         <ul class="nav navbar-nav navbar-right">
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <li class="nav-item">

@@ -71,7 +71,7 @@ class UserFixtures extends AbstractBaseFixtures
             $user = new User();
             $names = ['admin1', 'admin2', 'admin3'];
             $user->setName($names[$i]);
-            $user->setRoles(['ROLE_ADMIN']);
+            $user->setRoles(['ROLE_USER','ROLE_ADMIN']);
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
                 'admin1234'

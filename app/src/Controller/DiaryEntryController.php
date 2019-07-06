@@ -7,9 +7,7 @@ namespace App\Controller;
 
 use App\Entity\DiaryEntry;
 use App\Form\DiaryEntryType;
-use App\Form\SearchDateType;
 use App\Repository\DiaryEntryRepository;
-use App\Repository\UserDataRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,7 +70,7 @@ class DiaryEntryController extends AbstractController
      *     "/{sub}/view",
      *     methods={"GET"},
      *     name="diary_entry_view",
-     *     requirements={"sub": "[1-9]\d*"},
+     *     requirements={"sub": "[0-9]\d*"},
      * )
      * @IsGranted("ROLE_USER",)
      */
@@ -83,6 +81,16 @@ class DiaryEntryController extends AbstractController
             $request->query->getInt('page', 1),
             DiaryEntry::NUMBER_OF_ITEMS
         );
+
+//        $form = $this->createForm(SearchDateType::class, $diaryEntry, $sub, ['method' => 'PUT']);
+//        $form->handleRequest($request);
+//
+//        return $this->render(
+//            'diary_entry/edit.html.twig',
+//            [
+//                'form' => $form->createView(),
+//            ]
+//        );
 
         return $this->render(
             'diary_entry/view.html.twig',
@@ -152,6 +160,12 @@ class DiaryEntryController extends AbstractController
      */
     public function edit(Request $request, DiaryEntry $diaryEntry, DiaryEntryRepository $repository): Response
     {
+        if ($diaryEntry->getUser() !== $this->getUser()) {
+            $this->addFlash('warning', 'message.item_not_found');
+
+            return $this->redirectToRoute('diary_entry_index');
+        }
+
         $form = $this->createForm(DiaryEntryType::class, $diaryEntry, ['method' => 'PUT']);
         $form->handleRequest($request);
 

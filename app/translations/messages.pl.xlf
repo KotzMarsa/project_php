@@ -141,6 +141,18 @@
                 <source>label.user_name</source>
                 <target>Nazwa</target>
             </trans-unit>
+            <trans-unit id="label.user_list">
+                <source>label.user_list</source>
+                <target>Lista użytkowników</target>
+            </trans-unit>
+            <trans-unit id="label.role">
+                <source>label.role</source>
+                <target>Role</target>
+            </trans-unit>
+            <trans-unit id="label.promote">
+                <source>label.promote</source>
+                <target>Zmiana roli</target>
+            </trans-unit>
 
             <!-- Titles -->
 
@@ -204,6 +216,14 @@
                 <source>title.diary_entry_delete</source>
                 <target>Usuń wpis</target>
             </trans-unit>
+            <trans-unit id="title.user_list">
+                <source>title.user_list</source>
+                <target>Lista użytkowników</target>
+            </trans-unit>
+            <trans-unit id="title.user_promote">
+                <source>title.user_promote</source>
+                <target>Zmień rolę użytkownika</target>
+            </trans-unit>
 
             <!-- Actions -->
 
@@ -263,8 +283,17 @@
                 <source>action.diary_entry_prev</source>
                 <target>Poprzedni dzień</target>
             </trans-unit>
+            <trans-unit id="action.diary_entry_next">
+                <source>action.diary_entry_next</source>
+                <target>Następny dzień</target>
+            </trans-unit>
+            <trans-unit id="action.promote">
+                <source>action.promote</source>
+                <target>Zmień rolę</target>
+            </trans-unit>
 
             <!-- Messages -->
+
             <trans-unit id="message.created_successfully">
                 <source>message.created_successfully</source>
                 <target>Utworzono pomyślnie!</target>
@@ -281,6 +310,19 @@
                 <source>message.empty_list</source>
                 <target>Lista jest pusta.</target>
             </trans-unit>
+            <trans-unit id="message.form_error">
+                <source>message.form_error</source>
+                <target>Błąd formularza.</target>
+            </trans-unit>
+            <trans-unit id="message.item_not_found">
+                <source>message.item_not_found</source>
+                <target>Nie znaleziono.</target>
+            </trans-unit>
+            <trans-unit id="message.registered_successfully">
+                <source>message.registered_successfully</source>
+                <target>Zarejestrowano!</target>
+            </trans-unit>
+            
         </body>
     </file>
 </xliff>

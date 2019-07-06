@@ -39,7 +39,11 @@
             </thead>
             <tbody>
             {% for product in pagination %}
+                {% if product.isAccepted == 0 %}
+                <tr class ="table-dark">
+                {% else %}
                 <tr>
+                {% endif %}
                     {% if  is_granted('ROLE_ADMIN') == true %}
                     <td>{{ product.user.name }}</td>
                     {% endif %}

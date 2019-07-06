@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -38,6 +39,14 @@ class Product
      * @var string
      *
      * @ORM\Column(type="string", length=100)
+     *
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Assert\Length(
+     *     min="1",
+     *     max="100",
+     *     )
+     *
      */
     private $productName;
 
@@ -47,6 +56,13 @@ class Product
      * @var int
      *
      * @ORM\Column(type="smallint")
+     *
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 32000,
+     * )
      */
     private $calories;
 
@@ -56,6 +72,13 @@ class Product
      * @var int
      *
      * @ORM\Column(type="smallint")
+     *
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 32000,
+     * )
      */
     private $carbohydrate;
 
@@ -65,6 +88,13 @@ class Product
      * @var int
      *
      * @ORM\Column(type="smallint")
+     *
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 32000,
+     * )
      */
     private $protein;
 
@@ -74,6 +104,13 @@ class Product
      * @var int
      *
      * @ORM\Column(type="smallint")
+     *
+     * @Assert\NotBlank
+     * @Assert\Type("integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 32000,
+     * )
      */
     private $fat;
 

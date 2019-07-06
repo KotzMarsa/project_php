@@ -6,13 +6,46 @@
 
 {% block body %}
     <h1 class="text-center">{{ 'title.diary_entry_list'|trans }}</h1>
-    {% set sub = 1 %}
 
-    <div class = "text-center">
-        <a href="{{ url('diary_entry_view', {sub: sub+1}) }}" class="btn btn-secondary text-center" role="button" title="{{ 'action.diary_entry_prev'|trans }}">
-            {{ 'action.diary_entry_prev'|trans }}
+    {% if app.request.get("sub") == 0 %}
+        <div class = "text-center">
+            <a href="{{ url('diary_entry_new') }}" class="btn btn-secondary text-center" role="button" title="{{ 'action.diary_entry_new'|trans }}">
+                {{ 'action.diary_entry_new'|trans }}
+            </a>
+        </div>
+        <div class = "float-left">
+            <a href="{{ url('diary_entry_view', {sub: app.request.get("sub")+1}) }}" class="btn btn-secondary text-center" role="button" title="{{ 'action.diary_entry_prev'|trans }}">
+                {{ 'action.diary_entry_prev'|trans }}
+            </a>
+        </div>
+    {% else %}
+        <div class = "float-left">
+            <a href="{{ url('diary_entry_view', {sub: app.request.get("sub")+1}) }}" class="btn btn-secondary text-center" role="button" title="{{ 'action.diary_entry_prev'|trans }}">
+                {{ 'action.diary_entry_prev'|trans }}
+            </a>
+        </div>
+        <div class = "float-right">
+        <a href="{{ url('diary_entry_view', {sub: app.request.get("sub")-1}) }}" class="btn btn-secondary text-center" role="button" title="{{ 'action.diary_entry_next'|trans }}">
+            {{ 'action.diary_entry_next'|trans }}
         </a>
     </div>
+    {% endif %}
+
+
+    {#    <h1>{{ 'title.diary_entry_view'|trans }}</h1>#}
+{#    {{ form_start(form, { method: 'PUT', action: url('diary_entry_view') }) }}#}
+{#    {{ form_widget(form) }}#}
+{#    <div class="form-group row float-sm-right">#}
+{#        <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-primary" />#}
+{#    </div>#}
+{#    <div class="form-group row float-sm-left">#}
+{#        <a href="{{ url('diary_entry_index') }}" class="btn btn-link">#}
+{#            {{ 'action.back_to_list'|trans }}#}
+{#        </a>#}
+{#    </div>#}
+{#    {{ form_end(form) }}#}
+
+
     {% if pagination is defined and pagination|length %}
         <table class="table table-striped">
             <thead>
@@ -117,7 +150,8 @@
 
 
     {% else %}
-        <p>
+        <br><br>
+        <p class = "text-center">
             {{ 'message.empty_list'|trans }}
         </p>
     {% endif %}
