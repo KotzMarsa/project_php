@@ -224,6 +224,10 @@
                 <source>title.user_promote</source>
                 <target>Zmień rolę użytkownika</target>
             </trans-unit>
+            <trans-unit id="title.home">
+                <source>title.home</source>
+                <target>Witaj na stronie!</target>
+            </trans-unit>
 
             <!-- Actions -->
 

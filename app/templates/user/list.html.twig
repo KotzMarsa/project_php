@@ -24,20 +24,25 @@
             </thead>
             <tbody>
             {% for user in pagination %}
-                <td>{{ user.id }}</td>
-                <td>{{ user.userName }}</td>
-                <td>
-                {% set roles = [] %}
-                {% for role in user.roles %}
-                    {% set roles = roles|merge([role]) %}
-                {% endfor %}
-                {{ roles|join(', ') }}
-                </td>
+                {% if user.roles[1] is defined %}
+                    <tr class = "table-active">
+                {% else %}
+                    <tr>
+                {% endif %}
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.userName }}</td>
                     <td>
-                        <a href="{{ url('user_promote', {id: user.id}) }}" title="{{ 'action.promote'|trans }}">
-                            {{ 'action.promote'|trans }}
-                        </a>
+                    {% set roles = [] %}
+                    {% for role in user.roles %}
+                        {% set roles = roles|merge([role]) %}
+                    {% endfor %}
+                    {{ roles|join(', ') }}
                     </td>
+                        <td>
+                            <a href="{{ url('user_promote', {id: user.id}) }}" title="{{ 'action.promote'|trans }}">
+                                {{ 'action.promote'|trans }}
+                            </a>
+                        </td>
                 </tr>
             {% endfor %}
             </tbody>

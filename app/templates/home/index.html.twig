@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.home'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center">
+        {{ 'title.home'|trans }}
+    </h1>
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <div class="text-center">
+            <div class="btn-group-vertical" data-toggle="buttons">
+        <div class="btn btn-secondary">
+            <a href="{{ url('diary_entry_index') }}" class="btn">
+                {{ 'label.diary_entries'|trans }}
+            </a>
+        </div>
+        <div class="btn btn-secondary">
+            <a href="{{ url('product_index') }}" class="btn">
+                {{ 'label.products'|trans }}
+            </a>
+        </div>
+        <div class="btn btn-secondary">
+            <a href="{{ url('user_data_index') }}" class="btn">
+                {{ 'label.user_datas'|trans }}
+            </a>
+        </div>
+        <div class="btn btn-secondary">
+            <a href="{{ url('user_index') }}" class="btn">
+                {{ 'label.user_panel'|trans }}
+            </a>
+        </div>
+        {% if is_granted('ROLE_ADMIN') == true %}
+            <div class="btn btn-secondary">
+                <a href="{{ url('user_list') }}" class="btn">
+                    {{ 'label.user_list'|trans }}
+                </a>
+            </div>
+        {% endif %}
+        </div>
+        </div>
+    {% else %}
+    <h3 class="text-center">Przejdź do logowania</h3>
+    <div class="text-center">
+        <a href="{{ url('security_login') }}" class="btn btn-primary">
+            {{ 'action.login'|trans }}
+        </a>
+    </div>
+    {% endif %}
+
+
+{% endblock %}
