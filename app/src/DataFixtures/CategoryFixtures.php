@@ -48,14 +48,4 @@ class CategoryFixtures extends AbstractBaseFixtures
 
         $manager->flush();
     }
-
-//    /**
-//     * Load data.
-//     *
-//     * @param \Doctrine\Common\Persistence\ObjectManager $manager
-//     */
-//    protected function loadData(ObjectManager $manager): void
-//    {
-//        // TODO: Implement loadData() method.
-//    }
 }
